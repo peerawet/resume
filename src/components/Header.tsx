@@ -7,7 +7,8 @@ import {
   Phone,
   type LucideIcon,
 } from "lucide-react";
-import { personal } from "../data/resume";
+import { contact } from "../i18n";
+import { useLanguage } from "../context/language";
 
 function ContactLine({
   icon: Icon,
@@ -30,69 +31,64 @@ function ContactLine({
   );
 }
 
-export default function Header({ compact = false }: { compact?: boolean }) {
+export default function Header() {
+  const { t } = useLanguage();
+  const { personal } = t;
+
   return (
-    <header className="border-b-2 border-navy bg-white px-10 pb-5 pt-7">
-      <div className="flex items-center justify-between gap-6">
-        <div className="flex items-center gap-5">
-          <img
-            src={personal.photo}
-            alt="Peerawet Chursuk"
-            className="h-24 w-24 rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
-          />
-          <div>
-            <h1 className="font-display text-[30px] font-bold leading-tight tracking-tight">
-              {personal.name}
-            </h1>
-            <p className="mt-0.5 text-[15px] font-semibold text-slate-600">
-              {personal.title}
-            </p>
-            {!compact && (
-              <p className="mt-1 text-xs italic text-slate-500">
-                {personal.motto}
-              </p>
-            )}
-          </div>
+    <header className="flex items-center justify-between gap-6 border-b-2 border-navy bg-white px-9 pb-5 pt-7">
+      <div className="flex items-center gap-5">
+        <img
+          src={contact.photo}
+          alt={personal.name}
+          className="h-[92px] w-[92px] rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
+        />
+        <div>
+          <h1 className="font-display text-[31px] font-bold leading-tight tracking-tight">
+            {personal.name}
+          </h1>
+          <p className="mt-1 text-[14px] font-semibold text-slate-600">
+            {personal.title}
+          </p>
+          <p className="mt-1.5 text-[12px] italic text-slate-500">
+            {personal.motto}
+          </p>
         </div>
-        <div className="space-y-1 text-right text-xs">
-          <ContactLine icon={MapPin} bold>
-            {personal.location}
-          </ContactLine>
-          <ContactLine icon={Phone}>
-            <a href={`tel:${personal.phone}`} className="hover:underline">
-              {personal.phone}
-            </a>
-          </ContactLine>
-          <ContactLine icon={Mail}>
-            <a href={`mailto:${personal.email}`} className="hover:underline">
-              {personal.email}
-            </a>
-          </ContactLine>
-          {!compact && (
-            <ContactLine icon={Github}>
-              <a
-                href={personal.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:underline"
-              >
-                {personal.github}
-              </a>
-            </ContactLine>
-          )}
-          {!compact && (
-            <ContactLine icon={Linkedin}>
-              <a
-                href={personal.linkedinUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:underline"
-              >
-                {personal.linkedin}
-              </a>
-            </ContactLine>
-          )}
-        </div>
+      </div>
+      <div className="shrink-0 space-y-1 text-right text-[11.5px]">
+        <ContactLine icon={MapPin} bold>
+          {personal.location}
+        </ContactLine>
+        <ContactLine icon={Phone}>
+          <a href={`tel:${contact.phone}`} className="hover:underline">
+            {contact.phone}
+          </a>
+        </ContactLine>
+        <ContactLine icon={Mail}>
+          <a href={`mailto:${contact.email}`} className="hover:underline">
+            {contact.email}
+          </a>
+        </ContactLine>
+        <ContactLine icon={Github}>
+          <a
+            href={contact.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            {contact.github}
+          </a>
+        </ContactLine>
+        <ContactLine icon={Linkedin}>
+          <a
+            href={contact.linkedinUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            {contact.linkedin}
+          </a>
+        </ContactLine>
       </div>
     </header>
   );

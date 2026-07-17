@@ -1,0 +1,75 @@
+export interface Personal {
+  name: string;
+  title: string;
+  motto: string;
+  location: string;
+}
+
+export interface TechCategory {
+  label: string;
+  items: string[];
+}
+
+export interface RecognitionItem {
+  highlight: string;
+  detail: string;
+}
+
+export interface Bullet {
+  lead?: string;
+  text: string;
+}
+
+export interface ExperienceItem {
+  role: string;
+  note?: string;
+  company: string;
+  period: string;
+  bullets: Bullet[];
+}
+
+export interface EducationItem {
+  title: string;
+  detail?: string;
+  highlight?: string;
+  period?: string;
+}
+
+export interface ProjectLink {
+  label: string;
+  url: string;
+}
+
+export interface Project {
+  name: string;
+  status?: string;
+  links: ProjectLink[];
+  description: string;
+}
+
+export interface UiText {
+  sections: {
+    profile: string;
+    techStack: string;
+    recognition: string;
+    experience: string;
+    education: string;
+    projects: string;
+  };
+  status: Record<string, string>;
+  print: string;
+  footerRole: string;
+}
+
+export interface ResumeContent {
+  personal: Personal;
+  profile: string;
+  techStack: TechCategory[];
+  recognition: RecognitionItem[];
+  experience: ExperienceItem[];
+  education: EducationItem[];
+  projects: Project[];
+  ui: UiText;
+}
+
+export type Language = "en" | "th";

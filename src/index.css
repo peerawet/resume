@@ -3,8 +3,8 @@
 @theme {
   --color-navy: #1e3a5f;
   --color-ink: #1f2937;
-  --font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Source Serif 4", Georgia, serif;
+  --font-sans: "IBM Plex Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Source Serif 4", "Noto Serif Thai", Georgia, serif;
 }
 
 @page {
@@ -19,4 +19,12 @@
 
 body {
   color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Thai reads better without the wide, uppercase-style letter-spacing that
+   suits the Latin labels. */
+html[lang="th"] .tracked {
+  letter-spacing: 0.02em;
+  text-transform: none;
 }

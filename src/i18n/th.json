@@ -1,0 +1,115 @@
+{
+  "personal": {
+    "name": "Peerawet Chursuk",
+    "title": "Software Engineer · Full Stack Developer สายเน้นแก้ปัญหาให้ตรงจุด",
+    "motto": "“คิดให้ลึก สร้างให้ไว ใฝ่รู้เสมอ”",
+    "location": "นนทบุรี, ประเทศไทย"
+  },
+  "profile": "Full Stack Developer ที่มีพื้นฐานวิศวกรรมอุตสาหการ ตอนนี้ทำระบบ enterprise ให้หน่วยงานภาครัฐด้วย React และ TypeScript งานที่ผมถนัดที่สุดอยู่ก่อนถึงขั้นเขียนโค้ด คือการแปลง requirement ที่กำกวมหรือขัดกันเองให้กลายเป็นดีไซน์ระบบที่เข้ากับ codebase เดิมได้จริง แล้วส่งงานให้ไวด้วย workflow ที่มี AI ช่วย สลับบทบาทระหว่าง developer, system analyst และ UX ได้ในสปรินต์เดียว",
+  "techStack": [
+    { "label": "ภาษาโปรแกรม", "items": ["TypeScript", "JavaScript", "PHP", "SQL"] },
+    { "label": "เฟรมเวิร์ก", "items": ["React", "Next.js", "Express", "Laravel", "CodeIgniter", "Module Fed."] },
+    { "label": "เครื่องมือฝั่ง Frontend", "items": ["React Query", "React H. Form", "Redux", "Tailwind", "Vite", "Zod"] },
+    { "label": "ฐานข้อมูล", "items": ["PostgreSQL", "MySQL", "MSSQL", "MongoDB"] },
+    { "label": "Infra & DevOps", "items": ["Docker", "CI/CD", "AWS", "Nutanix", "VMware", "Ubuntu"] },
+    { "label": "ทำงานคู่กับ AI", "items": ["Claude", "Cursor", "Ollama", "Prompting"] }
+  ],
+  "recognition": [
+    { "highlight": "MVP ประจำสปรินต์", "detail": "— ทำ story point ได้สูงสุดในทีม (28 SP / 11 การ์ด), Chanwanich, 2026" },
+    { "highlight": "ผลประเมินทดลองงาน 89/100", "detail": "— อยู่ในระดับ “ดีเยี่ยม” ได้คะแนนเต็มด้านคุณภาพและความถูกต้องของงาน" },
+    { "highlight": "AWS Certified Developer", "detail": "– Associate" }
+  ],
+  "experience": [
+    {
+      "role": "Software Engineer",
+      "note": "พนักงานประจำ (เดิมเป็นสัญญาจ้าง)",
+      "company": "Chanwanich Co., Ltd. · สาทร กรุงเทพฯ · Hybrid",
+      "period": "เม.ย. 2026 – ปัจจุบัน",
+      "bullets": [
+        {
+          "lead": "ปลดล็อก requirement ของ Phase 3 ได้โดยไม่ต้องรื้อ Phase 1–2",
+          "text": "ลูกค้าอยากได้สิทธิ์การใช้งานแบบราย user บนระบบที่เป็น role-based ซึ่งถ้าทำตามวิธีปกติต้องเขียน permission API ใหม่ทั้งหมด ผมเลยรีดีไซน์หน้า permission จาก list แบบแถวเรียบให้เป็น tree ที่ขยายได้หลายชั้น ทำให้การให้สิทธิ์ราย user กลายเป็น permission ลูกที่ระบบรองรับอยู่แล้ว ประหยัดเวลารื้อระบบไปหลายสัปดาห์แบบแทบไม่แตะ backend"
+        },
+        {
+          "text": "รับหลายบทบาทในสปรินต์เดียว ทั้ง developer, system analyst และ UX ตั้งแต่ไล่ business logic จาก spec ที่มีข้อมูลน้อย เคาะ JSON contract กับทีม backend แล้วลงมือออกแบบและเขียน UI เอง"
+        },
+        {
+          "text": "Stack ที่ใช้: React, TypeScript, Vite, Module Federation, React Query, React Hook Form"
+        }
+      ]
+    },
+    {
+      "role": "Frontend Web Developer",
+      "company": "Chanwanich Co., Ltd. · สัญญาจ้าง",
+      "period": "ต.ค. 2025 – มี.ค. 2026",
+      "bullets": [
+        { "text": "ส่งงานโปรเจกต์สำคัญได้ทันกำหนด ช่วยลูกค้าเลี่ยงค่าปรับก้อนใหญ่" },
+        { "text": "รวม codebase ของทีม outsource เข้ากับโปรเจกต์หลัก แล้วประสานงานให้ทุกอย่างลงตัว" },
+        { "text": "ทำงานให้เร็วขึ้นด้วยการใช้ AI คู่กับการอ่าน business context ให้ไว เพื่อจับให้ได้ว่าลูกค้าต้องการอะไรจริง ๆ" }
+      ]
+    },
+    {
+      "role": "Developer",
+      "company": "Phillip Asset Management Co., Ltd.",
+      "period": "มี.ค. 2025 – ก.ย. 2025",
+      "bullets": [
+        { "text": "วาง infrastructure และ setup โปรเจกต์บน Nutanix ทำ containerization ด้วย Docker Compose" },
+        { "text": "สร้างระบบภายในด้วย React + TypeScript, Express และ CodeIgniter พร้อมดูแลระบบเดิมควบคู่กันไป" },
+        { "text": "ต่อ Ollama (Mistral) แบบรันในองค์กรเอง ให้พนักงานถามข้อมูลจาก CRM ได้" }
+      ]
+    },
+    {
+      "role": "Junior Web Programmer",
+      "company": "Orange Technology Solution Co., Ltd.",
+      "period": "เม.ย. 2024 – ก.ค. 2024",
+      "bullets": [
+        { "text": "เก็บ requirement จากลูกค้าโดยตรง" },
+        { "text": "พัฒนาโปรแกรมรับส่งข้อมูลเที่ยวบิน (flight forwarding)" },
+        { "text": "ทำ chatbot บน LINE" }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ",
+      "detail": "วิศวกรรมศาสตรบัณฑิต (วิศวกรรมอุตสาหการ)",
+      "highlight": "เกียรตินิยมอันดับสอง · GPA 3.36",
+      "period": "2014 – 2018"
+    },
+    {
+      "title": "TechUp — Full-Stack Bootcamp (เต็มเวลา)",
+      "detail": "เป็นหัวหน้ากลุ่มและช่วยติวเพื่อนร่วมรุ่น",
+      "period": "2023 (4 เดือน)"
+    },
+    {
+      "title": "AWS Certified Developer – Associate"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Dormy",
+      "status": "Completed",
+      "links": [
+        { "label": "site", "url": "https://dormy.forifi.xyz/" },
+        { "label": "code", "url": "https://github.com/peerawet/dormy" }
+      ],
+      "description": "SaaS แบบ full-stack สำหรับจัดการหอพัก ครอบคลุมตั้งแต่วางบิล สัญญาเช่า วิเคราะห์การเงิน ไปจนถึงออกเอกสาร PDF ทำด้วย Next.js, TypeScript, PostgreSQL, Prisma, Redux, NextAuth, Tailwind และ Recharts deploy บน AWS ECS ใช้ RDS อยู่หลัง load balancer"
+    }
+  ],
+  "ui": {
+    "sections": {
+      "profile": "โปรไฟล์",
+      "techStack": "Tech Stack",
+      "recognition": "รางวัลและการยอมรับ",
+      "experience": "ประสบการณ์ทำงาน",
+      "education": "การศึกษาและใบรับรอง",
+      "projects": "ผลงานเด่น"
+    },
+    "status": {
+      "Completed": "เสร็จสมบูรณ์",
+      "In progress": "กำลังพัฒนา"
+    },
+    "print": "พิมพ์ / บันทึก PDF",
+    "footerRole": "Software Engineer"
+  }
+}
