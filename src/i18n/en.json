@@ -42,11 +42,11 @@
   "recognition": [
     {
       "highlight": "Sprint MVP",
-      "detail": "— Top story-point performer (28 SP / 11 cards), Chanwanich, 2026"
+      "detail": "· Top story-point performer (28 SP / 11 cards), Chanwanich, 2026"
     },
     {
       "highlight": "Probation review: 89/100",
-      "detail": "— “Excellent” band; full marks on work quality & accuracy"
+      "detail": "· “Excellent” band; full marks on work quality & accuracy"
     }
   ],
   "experience": [
@@ -62,7 +62,7 @@
         },
         {
           "lead": "Caught a form design that the database couldn't support.",
-          "text": "A Figma form let users pick several ranks at once, but each rank belongs to exactly one position — so one position with many ranks was impossible in the data. I made the fields cascade: pick more than one rank and the position field disappears, which was exactly what the client wanted."
+          "text": "A Figma form let users pick several ranks at once, but each rank belongs to exactly one position, so one position with many ranks was impossible in the data. I made the fields cascade: pick more than one rank and the position field disappears, which was exactly what the client wanted."
         },
         {
           "lead": "Designed how users cross into Phase 3.",
@@ -93,13 +93,14 @@
       "period": "Mar 2025 – Sep 2025",
       "bullets": [
         {
-          "text": "Infrastructure & project setup on Nutanix with Docker Compose containerisation."
-        },
-        {
-          "text": "Built internal systems with React + TypeScript, Express and CodeIgniter; maintained the legacy stack alongside."
+          "lead": "Helped launch Thai ESGX, the firm's first new fund in over 4 years.",
+          "text": "A tax-deduction fund that now holds over ฿29,381,028 in assets."
         },
         {
           "text": "Integrated a local Ollama (Mistral) assistant so staff could ask questions against CRM data."
+        },
+        {
+          "text": "Maintained live systems where the legacy code couldn't be changed, so every fix had to work around."
         }
       ]
     },
@@ -122,7 +123,7 @@
       "period": "2014 – 2018"
     },
     {
-      "title": "TechUp — Full-Time Full-Stack Bootcamp",
+      "title": "TechUp · Full-Time Full-Stack Bootcamp",
       "detail": "Group leader and mentor for classmates",
       "period": "2023 (4 months)"
     },

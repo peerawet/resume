@@ -72,7 +72,7 @@ export function Experience() {
               <h3 className="text-[14.5px] font-bold">
                 {item.role}
                 {item.note && (
-                  <span className="font-normal text-slate-500"> — {item.note}</span>
+                  <span className="font-normal text-slate-500"> · {item.note}</span>
                 )}
               </h3>
               <span className="whitespace-nowrap text-[12px] font-semibold text-navy">
