@@ -47,8 +47,7 @@
     {
       "highlight": "Probation review: 89/100",
       "detail": "— “Excellent” band; full marks on work quality & accuracy"
-    },
-    { "highlight": "AWS Certified Developer", "detail": "– Associate" }
+    }
   ],
   "experience": [
     {
@@ -59,10 +58,15 @@
       "bullets": [
         {
           "lead": "Unblocked a Phase-3 requirement without refactoring Phase 1–2.",
-          "text": "The client needed per-user permissions on a role-based system; the obvious path meant rewriting every permission API. Redesigned the permission screen from a flat row list into an expandable multi-level tree, so a per-user grant became a child permission the system already supported — weeks of refactoring avoided at near-zero backend cost."
+          "text": "The client needed per-user permissions on a role-based system, and the obvious path meant rewriting every permission API. I redesigned the permission screen from a flat row list into an expandable multi-level tree, so a per-user grant became a child permission the system already supported. The client bought into the approach, which avoided weeks of refactoring."
         },
         {
-          "text": "Work across developer, system-analyst and UX roles in the same sprint: reverse-engineer business logic from thin specs, agree the JSON contract with the backend team, then design and build the UI."
+          "lead": "Caught a form design that the database couldn't support.",
+          "text": "A Figma form let users pick several ranks at once, but each rank belongs to exactly one position — so one position with many ranks was impossible in the data. I made the fields cascade: pick more than one rank and the position field disappears, which was exactly what the client wanted."
+        },
+        {
+          "lead": "Designed how users cross into Phase 3.",
+          "text": "Phase 3 shipped as a separate repo on its own URL, so I added a banner dropdown that lets users move between Phase 1, 2 and 3 as if it were a single app."
         }
       ]
     },
@@ -72,13 +76,14 @@
       "period": "Oct 2025 – Mar 2026",
       "bullets": [
         {
-          "text": "Delivered a critical project on time, saving the client from a significant financial penalty."
+          "lead": "Shipped a Phase-2 dashboard in a day that the vendor had budgeted a week for.",
+          "text": "It saved the client a ฿15,000-per-day late penalty."
         },
         {
-          "text": "Integrated and coordinated an outsourced team's codebase into the main project."
+          "text": "Merged the outsourced team's code into the main project."
         },
         {
-          "text": "Accelerated delivery by pairing AI tooling with fast business-context reading to identify what the client actually needed."
+          "text": "Stood in as system analyst on the rushed Phase-2 work while the team's SA was tied up managing the vendor."
         }
       ]
     },

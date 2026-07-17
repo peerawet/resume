@@ -62,7 +62,7 @@ export default function ResumePage() {
           </main>
         </div>
 
-        <footer className="tracked mt-auto flex items-center justify-between border-t border-slate-200 px-9 py-2.5 text-[9px] uppercase tracking-[0.14em] text-slate-400">
+        <footer className="tracked mt-auto flex items-center justify-between border-t border-slate-200 px-9 py-2.5 text-[10px] uppercase tracking-[0.14em] text-slate-400">
           <span>
             {t.personal.name} · {t.ui.footerRole}
           </span>
