@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=210mm, initial-scale=1.0" />
+    <title>Peerawet Chursuk - Resume</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1f2937;
+        --muted: #5b6472;
+        --accent: #1e3a5f;
+        --line: #d7dce3;
+        --line-soft: #e5e9ef;
+      }
+
+      body {
+        font-family: "Source Sans 3", "Segoe UI", sans-serif;
+        color: var(--ink);
+      }
+
+      .serif {
+        font-family: "Source Serif 4", Georgia, serif;
+      }
+
+      .a4 {
+        width: 210mm;
+        height: 297mm;
+        padding: 0;
+        margin: 0;
+        background: white;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+      }
+
+      .resume-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20mm;
+        align-items: center;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none !important;
+      }
+
+      a:hover {
+        text-decoration: underline !important;
+      }
+
+      a:focus {
+        outline: 1px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .text-muted {
+        color: var(--muted);
+      }
+
+      .text-accent {
+        color: var(--accent);
+      }
+
+      .sec-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+      }
+
+      .subhead {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+
+      .entry + .entry {
+        border-top: 1px solid var(--line-soft);
+        padding-top: 12px;
+        margin-top: 12px;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        padding: 0 6px;
+        line-height: 16px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen min-w-screen flex items-center justify-center bg-gray-200 py-6">
+    <button
+      id="generatePdfBtn"
+      class="fixed top-4 right-4 z-50 px-4 py-2 text-white rounded text-sm font-semibold shadow"
+      style="background: var(--accent)"
+    >
+      Generate PDF
+    </button>
+
+    <div class="resume-container">
+      <!-- ===================== Page 1 ===================== -->
+      <div class="a4 overflow-hidden flex flex-col relative">
+        <header
+          class="flex flex-row items-center justify-between px-10 pt-8 pb-6"
+          style="border-bottom: 2px solid var(--accent)"
+        >
+          <div class="flex items-center gap-6">
+            <img
+              src="https://lxyqtapnnytsigmrikoq.supabase.co/storage/v1/object/public/utill//fame-nobg.png"
+              alt="Profile"
+              class="w-24 h-24 rounded-full object-cover bg-gray-300"
+              style="border: 1px solid var(--line)"
+            />
+            <div>
+              <h1 class="serif text-3xl font-bold tracking-tight leading-tight">
+                Peerawet Chursuk
+              </h1>
+              <div class="text-base text-muted mt-1 font-semibold">
+                Software Engineer · Solution-Driven Full Stack Developer
+              </div>
+              <div class="text-xs text-muted mt-1 italic">
+                "Think deep. Build fast. Stay curious."
+              </div>
+              <div class="text-xs mt-1">
+                <a href="https://resume.forifi.xyz" target="_blank"
+                  >resume.forifi.xyz</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="text-xs text-right leading-relaxed" style="color: var(--ink)">
+            <div class="font-semibold">Nonthaburi, Thailand</div>
+            <div><a href="tel:065-502-6360">065-502-6360</a></div>
+            <div>
+              <a href="mailto:peerawet1996@gmail.com">peerawet1996@gmail.com</a>
+            </div>
+            <div>
+              GitHub:
+              <a href="https://github.com/peerawet" target="_blank">peerawet</a>
+            </div>
+            <div>
+              LinkedIn:
+              <a href="https://www.linkedin.com/in/peerawet-chursuk/" target="_blank"
+                >peerawet-chursuk</a
+              >
+            </div>
+          </div>
+        </header>
+
+        <div class="flex-1 flex flex-row gap-8 px-10 py-6">
+          <!-- Left column -->
+          <aside class="w-1/3 flex flex-col gap-6 min-w-[220px]">
+            <section>
+              <h2 class="sec-title">Tech Stack</h2>
+              <div class="flex flex-col gap-3">
+                <div>
+                  <div class="subhead">Languages</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>TypeScript</li>
+                    <li>JavaScript</li>
+                    <li>PHP</li>
+                    <li>SQL</li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="subhead">Frameworks</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>React</li>
+                    <li>Next.js</li>
+                    <li>Express</li>
+                    <li>Laravel</li>
+                    <li>CodeIgniter</li>
+                    <li>Module Fed.</li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="subhead">Frontend Ecosystem</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>React Query</li>
+                    <li>React H. Form</li>
+                    <li>Redux</li>
+                    <li>Tailwind</li>
+                    <li>Vite</li>
+                    <li>Zod</li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="subhead">Databases</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>PostgreSQL</li>
+                    <li>MySQL</li>
+                    <li>MSSQL</li>
+                    <li>MongoDB</li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="subhead">Infra &amp; DevOps</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>Docker</li>
+                    <li>CI/CD</li>
+                    <li>AWS</li>
+                    <li>Nutanix</li>
+                    <li>VMware</li>
+                    <li>Ubuntu</li>
+                  </ul>
+                </div>
+                <div>
+                  <div class="subhead">AI-Assisted Workflow</div>
+                  <ul class="grid grid-cols-2 gap-x-2 text-xs list-disc list-inside">
+                    <li>Claude</li>
+                    <li>Cursor</li>
+                    <li>Ollama</li>
+                    <li>Prompting</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            <!-- Recognition -->
+            <section>
+              <h2 class="sec-title">Recognition</h2>
+              <ul class="text-xs space-y-2">
+                <li>
+                  <span class="font-semibold">Sprint MVP</span> — Top story-point
+                  performer (28 SP / 11 cards), Chanwanich, 2026
+                </li>
+                <li>
+                  <span class="font-semibold">Probation review: 89/100</span> —
+                  "Excellent" band; full marks on work quality &amp; accuracy
+                </li>
+                <li>
+                  <span class="font-semibold">Voted 3rd for Deputy Team Lead</span>
+                  as the newest member of the team
+                </li>
+                <li>
+                  <span class="font-semibold">AWS Certified Developer</span> –
+                  Associate
+                </li>
+              </ul>
+            </section>
+          </aside>
+
+          <!-- Right column -->
+          <main class="w-2/3 flex flex-col gap-6 min-w-0">
+            <section>
+              <h2 class="sec-title">Profile</h2>
+              <p class="text-xs leading-relaxed">
+                Full stack developer with an industrial-engineering background,
+                now building government-sector enterprise systems in React &amp;
+                TypeScript. My strongest work happens upstream of the code:
+                turning vague or conflicting requirements into a system design
+                that fits the constraints of the codebase that already exists —
+                then shipping it fast with an AI-assisted workflow. Comfortable
+                moving between developer, system analyst and UX roles within the
+                same sprint.
+              </p>
+            </section>
+
+            <section>
+              <h2 class="sec-title">Professional Experience</h2>
+
+              <!-- Chanwanich - permanent -->
+              <div class="entry">
+                <div class="flex items-baseline justify-between">
+                  <div class="text-sm font-bold">
+                    Software Engineer
+                    <span class="font-normal text-muted">— Full-time (converted from contract)</span>
+                  </div>
+                  <div class="text-xs text-muted whitespace-no-wrap">
+                    Apr 2026 – Present
+                  </div>
+                </div>
+                <div class="text-xs text-muted mb-2">
+                  Chanwanich Co., Ltd. · Sathon, Bangkok · Hybrid
+                </div>
+                <ul class="text-xs list-disc list-inside space-y-1">
+                  <li>
+                    <span class="font-semibold"
+                      >Unblocked a Phase-3 requirement without refactoring Phase
+                      1–2.</span
+                    >
+                    The client needed per-user permissions on a role-based
+                    system; the obvious path meant rewriting every permission
+                    API. Redesigned the permission screen from a flat row list
+                    into an expandable multi-level tree, so a per-user grant
+                    became a child permission the system already supported —
+                    weeks of refactoring avoided at near-zero backend cost.
+                  </li>
+                  <li>
+                    <span class="font-semibold"
+                      >Root-caused a production-only white screen</span
+                    >
+                    in a Module Federation build: the esbuild minifier emitted a
+                    duplicate identifier, breaking the whole remote before a
+                    single line ran. Reproduced it in a headless browser against
+                    the real Docker serve setup, isolated the collision, and
+                    fixed it by switching the minifier to terser — no
+                    bundle-size or build-time regression.
+                  </li>
+                  <li>
+                    Work across developer, system-analyst and UX roles in the
+                    same sprint: reverse-engineer business logic from thin
+                    specs, agree the JSON contract with the backend team, then
+                    design and build the UI.
+                  </li>
+                  <li>
+                    Stack: React, TypeScript, Vite, Module Federation, React
+                    Query, React Hook Form.
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Chanwanich - contract -->
+              <div class="entry">
+                <div class="flex items-baseline justify-between">
+                  <div class="text-sm font-bold">Frontend Web Developer</div>
+                  <div class="text-xs text-muted whitespace-no-wrap">
+                    Oct 2025 – Mar 2026
+                  </div>
+                </div>
+                <div class="text-xs text-muted mb-2">
+                  Chanwanich Co., Ltd. · Contract
+                </div>
+                <ul class="text-xs list-disc list-inside space-y-1">
+                  <li>
+                    Delivered a critical project on time, saving the client from
+                    a significant financial penalty.
+                  </li>
+                  <li>
+                    Integrated and coordinated an outsourced team's codebase
+                    into the main project.
+                  </li>
+                  <li>
+                    Accelerated delivery by pairing AI tooling with fast
+                    business-context reading to identify what the client
+                    actually needed.
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+
+      <!-- ===================== Page 2 ===================== -->
+      <div class="a4 overflow-hidden flex flex-col relative">
+        <header
+          class="flex flex-row items-center justify-between px-10 pt-8 pb-6"
+          style="border-bottom: 2px solid var(--accent)"
+        >
+          <div class="flex items-center gap-6">
+            <img
+              src="https://lxyqtapnnytsigmrikoq.supabase.co/storage/v1/object/public/utill//fame-nobg.png"
+              alt="Profile"
+              class="w-24 h-24 rounded-full object-cover bg-gray-300"
+              style="border: 1px solid var(--line)"
+            />
+            <div>
+              <h1 class="serif text-3xl font-bold tracking-tight leading-tight">
+                Peerawet Chursuk
+              </h1>
+              <div class="text-base text-muted mt-1 font-semibold">
+                Software Engineer · Solution-Driven Full Stack Developer
+              </div>
+              <div class="text-xs mt-1">
+                <a href="https://resume.forifi.xyz" target="_blank"
+                  >resume.forifi.xyz</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="text-xs text-right leading-relaxed" style="color: var(--ink)">
+            <div class="font-semibold">Nonthaburi, Thailand</div>
+            <div><a href="tel:065-502-6360">065-502-6360</a></div>
+            <div>
+              <a href="mailto:peerawet1996@gmail.com">peerawet1996@gmail.com</a>
+            </div>
+          </div>
+        </header>
+
+        <div class="flex-1 flex flex-row gap-8 px-10 py-6">
+          <!-- Left column -->
+          <aside class="w-1/3 flex flex-col gap-6 min-w-[220px]">
+            <section>
+              <h2 class="sec-title">Education &amp; Certificates</h2>
+
+              <div class="entry">
+                <div class="font-bold text-sm">
+                  King Mongkut's University of Technology North Bangkok
+                </div>
+                <div class="text-xs mt-1">
+                  B.Eng., Industrial Engineering<br />
+                  <span class="font-semibold"
+                    >Second Class Honours · 3.36 GPA</span
+                  >
+                </div>
+                <div class="text-xs text-muted mt-1">2014 – 2018</div>
+              </div>
+
+              <div class="entry">
+                <div class="font-bold text-sm">
+                  TechUp — Full-Time Full-Stack Bootcamp
+                </div>
+                <div class="text-xs mt-1">
+                  Group leader and mentor for classmates
+                </div>
+                <div class="text-xs text-muted mt-1">2023 (4 months)</div>
+              </div>
+
+              <div class="entry">
+                <div class="font-bold text-sm">
+                  AWS Certified Developer – Associate
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="sec-title">Working with AI</h2>
+              <div class="text-xs leading-relaxed">
+                AI helps me go faster, but the system design still comes from
+                me. I read the backend and the spec, decide the trade-offs, then
+                let the tooling handle the typing.
+              </div>
+              <div
+                class="mt-3 pl-3 py-1 text-xs italic text-muted"
+                style="border-left: 2px solid var(--accent)"
+              >
+                "AI reflects what I know, not what I've missed. Growth begins
+                when I'm ready to see what I couldn't before."
+              </div>
+            </section>
+          </aside>
+
+          <!-- Right column -->
+          <main class="w-2/3 flex flex-col gap-6 min-w-0">
+            <section>
+              <h2 class="sec-title">Professional Experience (cont.)</h2>
+
+              <div class="entry">
+                <div class="flex items-baseline justify-between">
+                  <div class="text-sm font-bold">Developer</div>
+                  <div class="text-xs text-muted whitespace-no-wrap">
+                    Mar 2025 – Sep 2025
+                  </div>
+                </div>
+                <div class="text-xs text-muted mb-2">
+                  Phillip Asset Management Co., Ltd.
+                </div>
+                <ul class="text-xs list-disc list-inside space-y-1">
+                  <li>
+                    Infrastructure &amp; project setup on Nutanix with Docker
+                    Compose containerisation.
+                  </li>
+                  <li>
+                    Built internal systems with React + TypeScript, Express and
+                    CodeIgniter; maintained the legacy stack alongside.
+                  </li>
+                  <li>
+                    Integrated a local Ollama (Mistral) assistant so staff could
+                    ask questions against CRM data.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="entry">
+                <div class="flex items-baseline justify-between">
+                  <div class="text-sm font-bold">Junior Web Programmer</div>
+                  <div class="text-xs text-muted whitespace-no-wrap">
+                    Apr 2024 – Jul 2024
+                  </div>
+                </div>
+                <div class="text-xs text-muted mb-2">
+                  Orange Technology Solution Co., Ltd.
+                </div>
+                <ul class="text-xs list-disc list-inside space-y-1">
+                  <li>Gathered requirements directly from the customer.</li>
+                  <li>Developed a flight-forwarding program.</li>
+                  <li>Built a LINE chatbot integration.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="sec-title">Project Highlights</h2>
+
+              <div class="entry">
+                <div class="flex items-center gap-2 text-sm font-bold">
+                  Dormy
+                  <span class="tag">Completed</span>
+                  <a
+                    href="https://dormy.forifi.xyz/"
+                    class="text-xs font-normal"
+                    target="_blank"
+                    >site</a
+                  >
+                  <a
+                    href="https://github.com/peerawet/dormy"
+                    class="text-xs font-normal"
+                    target="_blank"
+                    >code</a
+                  >
+                </div>
+                <div class="text-xs leading-snug mt-1">
+                  Full-stack SaaS for dormitory management — billing, contracts,
+                  financial analytics and PDF generation. Next.js, TypeScript,
+                  PostgreSQL, Prisma, Redux, NextAuth, Tailwind, Recharts.
+                  Deployed on AWS ECS with RDS behind a load balancer.
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="flex items-center gap-2 text-sm font-bold">
+                  EasyWeb
+                  <span class="tag">In progress</span>
+                  <a
+                    href="https://www.forifi.xyz/"
+                    class="text-xs font-normal"
+                    target="_blank"
+                    >site</a
+                  >
+                </div>
+                <div class="text-xs leading-snug mt-1">
+                  A lean SaaS that lets non-technical users create and deploy
+                  static sites straight to GitHub Pages — built on the GitHub
+                  API alone, no database. Deployed on AWS ECS/EC2 with ALB and
+                  ACM for HTTPS.
+                </div>
+              </div>
+
+              <div class="entry">
+                <div class="flex items-center gap-2 text-sm font-bold">
+                  Document Management System
+                  <a
+                    href="https://dms-frontend-q93o.onrender.com"
+                    class="text-xs font-normal"
+                    target="_blank"
+                    >site</a
+                  >
+                  <a
+                    href="https://github.com/peerawet/TPS"
+                    class="text-xs font-normal"
+                    target="_blank"
+                    >code</a
+                  >
+                </div>
+                <div class="text-xs leading-snug mt-1">
+                  Document management built on Supabase as a full BaaS layer —
+                  JWT authentication, file management and cloud database
+                  operations.
+                </div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+      const generatePdfBtn = document.getElementById("generatePdfBtn");
+
+      generatePdfBtn.addEventListener("click", async () => {
+        generatePdfBtn.style.display = "none";
+        try {
+          const pages = document.querySelectorAll(".a4");
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF("portrait", "mm", "a4");
+
+          for (let i = 0; i < pages.length; i++) {
+            const canvas = await html2canvas(pages[i], {
+              scale: 2,
+              useCORS: true,
+              allowTaint: true,
+              letterRendering: true,
+              backgroundColor: "#ffffff",
+              width: pages[i].offsetWidth,
+              height: pages[i].offsetHeight,
+            });
+            const imgData = canvas.toDataURL("image/jpeg");
+            if (i > 0) pdf.addPage();
+            pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+          }
+
+          pdf.save("Peerawet_Chursuk_Resume.pdf");
+        } catch (error) {
+          console.error("Error generating PDF:", error);
+          alert("เกิดข้อผิดพลาดในการสร้าง PDF กรุณาลองใหม่อีกครั้ง");
+        } finally {
+          generatePdfBtn.style.display = "flex";
+        }
+      });
+    </script>
+  </body>
+</html>
