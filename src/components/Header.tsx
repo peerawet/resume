@@ -26,7 +26,7 @@ function ContactLine({
       }`}
     >
       <span>{children}</span>
-      <Icon size={13} className="shrink-0 text-navy" />
+      <Icon size={15} className="shrink-0 text-navy" />
     </div>
   );
 }
@@ -44,18 +44,18 @@ export default function Header() {
           className="h-[92px] w-[92px] rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
         />
         <div>
-          <h1 className="font-display text-[32px] font-bold leading-tight tracking-tight">
+          <h1 className="font-display text-[36px] font-bold leading-tight tracking-tight">
             {personal.name}
           </h1>
-          <p className="mt-1 text-[15px] font-semibold text-slate-600">
+          <p className="mt-1 text-[17px] font-semibold text-slate-600">
             {personal.title}
           </p>
-          <p className="mt-1.5 text-[13px] italic text-slate-500">
+          <p className="mt-1.5 text-[15px] italic text-slate-500">
             {personal.motto}
           </p>
         </div>
       </div>
-      <div className="shrink-0 space-y-1 text-right text-[12.5px]">
+      <div className="shrink-0 space-y-1 text-right text-[14.5px]">
         <ContactLine icon={MapPin} bold>
           {personal.location}
         </ContactLine>

@@ -50,19 +50,19 @@ export default function ResumePage() {
         <Header />
 
         <div className="flex min-h-0 flex-1">
-          <aside className="flex w-[35%] shrink-0 flex-col gap-5 border-r border-slate-200 bg-slate-50 px-7 py-6">
+          <aside className="flex w-[28%] shrink-0 flex-col gap-5 border-r border-slate-200 bg-slate-50 px-6 py-6">
             <TechStack />
             <Recognition />
             <Education />
           </aside>
-          <main className="flex min-w-0 flex-1 flex-col gap-5 px-8 py-6">
+          <main className="flex min-w-0 flex-1 flex-col gap-5 px-9 py-6">
             <Profile />
             <Experience />
             <Projects />
           </main>
         </div>
 
-        <footer className="tracked mt-auto flex items-center justify-between border-t border-slate-200 px-9 py-2.5 text-[10px] uppercase tracking-[0.14em] text-slate-400">
+        <footer className="tracked mt-auto flex items-center justify-between border-t border-slate-200 px-9 py-2.5 text-[12px] uppercase tracking-[0.14em] text-slate-400">
           <span>
             {t.personal.name} · {t.ui.footerRole}
           </span>
