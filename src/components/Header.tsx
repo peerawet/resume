@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import {
   Github,
-  Globe,
   Linkedin,
   Mail,
   MapPin,
@@ -53,14 +52,6 @@ export default function Header({ compact = false }: { compact?: boolean }) {
                 {personal.motto}
               </p>
             )}
-            <a
-              href={personal.websiteUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold text-navy hover:underline"
-            >
-              <Globe size={12} /> {personal.website}
-            </a>
           </div>
         </div>
         <div className="space-y-1 text-right text-xs">

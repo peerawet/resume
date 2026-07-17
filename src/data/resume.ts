@@ -4,8 +4,6 @@ export const personal = {
   motto: '"Think deep. Build fast. Stay curious."',
   photo:
     "https://lxyqtapnnytsigmrikoq.supabase.co/storage/v1/object/public/utill//fame-nobg.png",
-  website: "resume.forifi.xyz",
-  websiteUrl: "https://resume.forifi.xyz",
   location: "Nonthaburi, Thailand",
   phone: "065-502-6360",
   email: "peerawet1996@gmail.com",
@@ -65,10 +63,6 @@ export const recognition: RecognitionItem[] = [
     detail: '— "Excellent" band; full marks on work quality & accuracy',
   },
   {
-    highlight: "Voted 3rd for Deputy Team Lead",
-    detail: "as the newest member of the team",
-  },
-  {
     highlight: "AWS Certified Developer",
     detail: "– Associate",
   },
@@ -97,10 +91,6 @@ export const experiencePage1: ExperienceItem[] = [
       {
         lead: "Unblocked a Phase-3 requirement without refactoring Phase 1–2.",
         text: "The client needed per-user permissions on a role-based system; the obvious path meant rewriting every permission API. Redesigned the permission screen from a flat row list into an expandable multi-level tree, so a per-user grant became a child permission the system already supported — weeks of refactoring avoided at near-zero backend cost.",
-      },
-      {
-        lead: "Root-caused a production-only white screen",
-        text: "in a Module Federation build: the esbuild minifier emitted a duplicate identifier, breaking the whole remote before a single line ran. Reproduced it in a headless browser against the real Docker serve setup, isolated the collision, and fixed it by switching the minifier to terser — no bundle-size or build-time regression.",
       },
       {
         text: "Work across developer, system-analyst and UX roles in the same sprint: reverse-engineer business logic from thin specs, agree the JSON contract with the backend team, then design and build the UI.",
@@ -181,12 +171,6 @@ export const education: EducationItem[] = [
   },
 ];
 
-export const workingWithAI = {
-  text: "AI helps me go faster, but the system design still comes from me. I read the backend and the spec, decide the trade-offs, then let the tooling handle the typing.",
-  quote:
-    '"AI reflects what I know, not what I\'ve missed. Growth begins when I\'m ready to see what I couldn\'t before."',
-};
-
 export interface ProjectLink {
   label: string;
   url: string;
@@ -209,21 +193,5 @@ export const projects: Project[] = [
     ],
     description:
       "Full-stack SaaS for dormitory management — billing, contracts, financial analytics and PDF generation. Next.js, TypeScript, PostgreSQL, Prisma, Redux, NextAuth, Tailwind, Recharts. Deployed on AWS ECS with RDS behind a load balancer.",
-  },
-  {
-    name: "EasyWeb",
-    status: "In progress",
-    links: [{ label: "site", url: "https://www.forifi.xyz/" }],
-    description:
-      "A lean SaaS that lets non-technical users create and deploy static sites straight to GitHub Pages — built on the GitHub API alone, no database. Deployed on AWS ECS/EC2 with ALB and ACM for HTTPS.",
-  },
-  {
-    name: "Document Management System",
-    links: [
-      { label: "site", url: "https://dms-frontend-q93o.onrender.com" },
-      { label: "code", url: "https://github.com/peerawet/TPS" },
-    ],
-    description:
-      "Document management built on Supabase as a full BaaS layer — JWT authentication, file management and cloud database operations.",
   },
 ];

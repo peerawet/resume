@@ -6,7 +6,6 @@ import {
   projects,
   recognition,
   techStack,
-  workingWithAI,
   type ExperienceItem,
 } from "../data/resume";
 
@@ -137,18 +136,6 @@ export function Education() {
           </div>
         ))}
       </div>
-    </section>
-  );
-}
-
-export function WorkingWithAI() {
-  return (
-    <section>
-      <SectionTitle>Working with AI</SectionTitle>
-      <p className="text-[11px] leading-relaxed">{workingWithAI.text}</p>
-      <blockquote className="mt-3 border-l-2 border-navy py-0.5 pl-3 text-[11px] italic leading-relaxed text-slate-500">
-        {workingWithAI.quote}
-      </blockquote>
     </section>
   );
 }
