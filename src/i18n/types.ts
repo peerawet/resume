@@ -44,6 +44,7 @@ export interface Project {
   name: string;
   status?: string;
   links: ProjectLink[];
+  lead?: string;
   description: string;
 }
 

@@ -163,6 +163,9 @@ export function Projects() {
               ))}
             </div>
             <p className="mt-1.5 text-[11.5px] leading-[1.6]">
+              {project.lead && (
+                <span className="font-semibold">{project.lead} </span>
+              )}
               {project.description}
             </p>
           </div>

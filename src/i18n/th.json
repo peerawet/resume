@@ -24,13 +24,7 @@
     },
     {
       "label": "เครื่องมือฝั่ง Frontend",
-      "items": [
-        "React Query",
-        "React H. Form",
-        "Redux",
-        "Tailwind",
-        "Vite"
-      ]
+      "items": ["React Query", "React H. Form", "Redux", "Tailwind", "Vite"]
     },
     {
       "label": "ฐานข้อมูล",
@@ -136,10 +130,11 @@
       "name": "Dormy",
       "status": "Completed",
       "links": [
-        { "label": "site", "url": "https://dormy.forifi.xyz/" },
+        { "label": "site", "url": "https://dormy-xi.vercel.app/" },
         { "label": "code", "url": "https://github.com/peerawet/dormy" }
       ],
-      "description": "SaaS แบบ full-stack แบบ multi-tenant สำหรับเจ้าของหอพัก พัฒนาขึ้นเพื่อใช้กับธุรกิจหอพักที่บ้าน — ออกบิลรายเดือนพร้อมคิดค่าน้ำ/ไฟตามมิเตอร์หรือเหมาจ่าย จัดการสัญญาเช่า นำเข้าบิลจำนวนมากผ่าน Excel และ Google Sheets และแดชบอร์ดวิเคราะห์รายรับ/รายจ่าย พร้อมออกสัญญาและใบเสร็จเป็น PDF"
+      "lead": "SaaS แบบ full-stack แบบ multi-tenant สำหรับเจ้าของหอพัก พัฒนาขึ้นเพื่อใช้กับธุรกิจหอพักที่บ้าน",
+      "description": "ออกบิลรายเดือนพร้อมคิดค่าน้ำ/ไฟตามมิเตอร์หรือเหมาจ่าย จัดการสัญญาเช่า นำเข้าบิลจำนวนมากผ่าน Excel และ Google Sheets และแดชบอร์ดวิเคราะห์รายรับ/รายจ่าย พร้อมออกสัญญาและใบเสร็จเป็น PDF"
     }
   ],
   "ui": {

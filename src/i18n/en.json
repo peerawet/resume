@@ -130,10 +130,11 @@
       "name": "Dormy",
       "status": "Completed",
       "links": [
-        { "label": "site", "url": "https://dormy.forifi.xyz/" },
+        { "label": "site", "url": "https://dormy-xi.vercel.app/" },
         { "label": "code", "url": "https://github.com/peerawet/dormy" }
       ],
-      "description": "Full-stack multi-tenant SaaS for dormitory owners, built to run my family's dormitory business — monthly billing with metered or flat-rate utilities, rental-contract management, bulk bill import via Excel & Google Sheets, and a revenue/expense analytics dashboard with PDF contract & receipt generation."
+      "lead": "Full-stack multi-tenant SaaS for dormitory owners, built to run my family's dormitory business.",
+      "description": "Monthly billing with metered or flat-rate utilities, rental-contract management, bulk bill import via Excel & Google Sheets, and a revenue/expense analytics dashboard with PDF contract & receipt generation."
     }
   ],
   "ui": {
