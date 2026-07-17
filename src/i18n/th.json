@@ -139,7 +139,7 @@
         { "label": "site", "url": "https://dormy.forifi.xyz/" },
         { "label": "code", "url": "https://github.com/peerawet/dormy" }
       ],
-      "description": "SaaS แบบ full-stack สำหรับจัดการหอพัก ครอบคลุมตั้งแต่วางบิล สัญญาเช่า วิเคราะห์การเงิน ไปจนถึงออกเอกสาร PDF ทำด้วย Next.js, TypeScript, PostgreSQL, Prisma, Redux, NextAuth, Tailwind และ Recharts deploy บน AWS ECS ใช้ RDS อยู่หลัง load balancer"
+      "description": "SaaS แบบ full-stack แบบ multi-tenant สำหรับเจ้าของหอพัก พัฒนาขึ้นเพื่อใช้กับธุรกิจหอพักที่บ้าน — ออกบิลรายเดือนพร้อมคิดค่าน้ำ/ไฟตามมิเตอร์หรือเหมาจ่าย จัดการสัญญาเช่า นำเข้าบิลจำนวนมากผ่าน Excel และ Google Sheets และแดชบอร์ดวิเคราะห์รายรับ/รายจ่าย พร้อมออกสัญญาและใบเสร็จเป็น PDF"
     }
   ],
   "ui": {

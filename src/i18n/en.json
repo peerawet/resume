@@ -5,7 +5,7 @@
     "motto": "“Think deep. Build fast. Stay curious.”",
     "location": "Nonthaburi, Thailand"
   },
-  "profile": "Full stack developer with an industrial-engineering background, now building government-sector enterprise systems in React & TypeScript. My strongest work happens upstream of the code: turning vague or conflicting requirements into a system design that fits the constraints of the codebase that already exists — then shipping it fast with an AI-assisted workflow. Comfortable moving between developer, system analyst and UX roles within the same sprint.",
+  "profile": "Full stack developer with an industrial-engineering background, now building government-sector enterprise systems in React & TypeScript. My strongest work happens upstream of the code turning vague or conflicting requirements into a system design that fits the constraints of the codebase that already exists then shipping it fast with an AI-assisted workflow. Comfortable moving between developer, system analyst and UX roles within the same sprint.",
   "techStack": [
     {
       "label": "Languages",
@@ -133,7 +133,7 @@
         { "label": "site", "url": "https://dormy.forifi.xyz/" },
         { "label": "code", "url": "https://github.com/peerawet/dormy" }
       ],
-      "description": "Full-stack SaaS for dormitory management — billing, contracts, financial analytics and PDF generation. Next.js, TypeScript, PostgreSQL, Prisma, Redux, NextAuth, Tailwind, Recharts. Deployed on AWS ECS with RDS behind a load balancer."
+      "description": "Full-stack multi-tenant SaaS for dormitory owners, built to run my family's dormitory business — monthly billing with metered or flat-rate utilities, rental-contract management, bulk bill import via Excel & Google Sheets, and a revenue/expense analytics dashboard with PDF contract & receipt generation."
     }
   ],
   "ui": {
