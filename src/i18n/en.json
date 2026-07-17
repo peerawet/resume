@@ -7,16 +7,47 @@
   },
   "profile": "Full stack developer with an industrial-engineering background, now building government-sector enterprise systems in React & TypeScript. My strongest work happens upstream of the code: turning vague or conflicting requirements into a system design that fits the constraints of the codebase that already exists — then shipping it fast with an AI-assisted workflow. Comfortable moving between developer, system analyst and UX roles within the same sprint.",
   "techStack": [
-    { "label": "Languages", "items": ["TypeScript", "JavaScript", "PHP", "SQL"] },
-    { "label": "Frameworks", "items": ["React", "Next.js", "Express", "Laravel", "CodeIgniter", "Module Fed."] },
-    { "label": "Frontend Ecosystem", "items": ["React Query", "React H. Form", "Redux", "Tailwind", "Vite", "Zod"] },
-    { "label": "Databases", "items": ["PostgreSQL", "MySQL", "MSSQL", "MongoDB"] },
-    { "label": "Infra & DevOps", "items": ["Docker", "CI/CD", "AWS", "Nutanix", "VMware", "Ubuntu"] },
-    { "label": "AI-Assisted Workflow", "items": ["Claude", "Cursor", "Ollama", "Prompting"] }
+    {
+      "label": "Languages",
+      "items": ["TypeScript", "JavaScript", "PHP", "SQL"]
+    },
+    {
+      "label": "Frameworks",
+      "items": [
+        "React",
+        "Next.js",
+        "Express",
+        "Laravel",
+        "CodeIgniter",
+        "Module Fed."
+      ]
+    },
+    {
+      "label": "Frontend Ecosystem",
+      "items": ["React Query", "React H. Form", "Redux", "Tailwind", "Vite"]
+    },
+    {
+      "label": "Databases",
+      "items": ["PostgreSQL", "MySQL", "MSSQL", "MongoDB"]
+    },
+    {
+      "label": "Infra & DevOps",
+      "items": ["Docker", "CI/CD", "AWS", "Nutanix", "VMware", "Ubuntu"]
+    },
+    {
+      "label": "AI-Assisted Workflow",
+      "items": ["Claude", "Cursor", "Ollama", "Prompting"]
+    }
   ],
   "recognition": [
-    { "highlight": "Sprint MVP", "detail": "— Top story-point performer (28 SP / 11 cards), Chanwanich, 2026" },
-    { "highlight": "Probation review: 89/100", "detail": "— “Excellent” band; full marks on work quality & accuracy" },
+    {
+      "highlight": "Sprint MVP",
+      "detail": "— Top story-point performer (28 SP / 11 cards), Chanwanich, 2026"
+    },
+    {
+      "highlight": "Probation review: 89/100",
+      "detail": "— “Excellent” band; full marks on work quality & accuracy"
+    },
     { "highlight": "AWS Certified Developer", "detail": "– Associate" }
   ],
   "experience": [
@@ -32,9 +63,6 @@
         },
         {
           "text": "Work across developer, system-analyst and UX roles in the same sprint: reverse-engineer business logic from thin specs, agree the JSON contract with the backend team, then design and build the UI."
-        },
-        {
-          "text": "Stack: React, TypeScript, Vite, Module Federation, React Query, React Hook Form."
         }
       ]
     },
@@ -43,9 +71,15 @@
       "company": "Chanwanich Co., Ltd. · Contract",
       "period": "Oct 2025 – Mar 2026",
       "bullets": [
-        { "text": "Delivered a critical project on time, saving the client from a significant financial penalty." },
-        { "text": "Integrated and coordinated an outsourced team's codebase into the main project." },
-        { "text": "Accelerated delivery by pairing AI tooling with fast business-context reading to identify what the client actually needed." }
+        {
+          "text": "Delivered a critical project on time, saving the client from a significant financial penalty."
+        },
+        {
+          "text": "Integrated and coordinated an outsourced team's codebase into the main project."
+        },
+        {
+          "text": "Accelerated delivery by pairing AI tooling with fast business-context reading to identify what the client actually needed."
+        }
       ]
     },
     {
@@ -53,9 +87,15 @@
       "company": "Phillip Asset Management Co., Ltd.",
       "period": "Mar 2025 – Sep 2025",
       "bullets": [
-        { "text": "Infrastructure & project setup on Nutanix with Docker Compose containerisation." },
-        { "text": "Built internal systems with React + TypeScript, Express and CodeIgniter; maintained the legacy stack alongside." },
-        { "text": "Integrated a local Ollama (Mistral) assistant so staff could ask questions against CRM data." }
+        {
+          "text": "Infrastructure & project setup on Nutanix with Docker Compose containerisation."
+        },
+        {
+          "text": "Built internal systems with React + TypeScript, Express and CodeIgniter; maintained the legacy stack alongside."
+        },
+        {
+          "text": "Integrated a local Ollama (Mistral) assistant so staff could ask questions against CRM data."
+        }
       ]
     },
     {
