@@ -40,6 +40,8 @@ interface EditingValue {
   editable: boolean;
   /** mutate สำเนาของ draft (content ภาษาปัจจุบัน + contact) แล้ว state ถูก set ใหม่ */
   update: (recipe: (draft: EditableDraft) => void) => void;
+  /** id ของ resume ที่กำลังแก้ — จำเป็นสำหรับอัพโหลดรูป (scope path ใน Blob) */
+  resumeId?: string;
 }
 
 const EditingContext = createContext<EditingValue>({
@@ -51,13 +53,15 @@ export const useEditing = () => useContext(EditingContext);
 
 export function EditingProvider({
   update,
+  resumeId,
   children,
 }: {
   update: EditingValue["update"];
+  resumeId?: string;
   children: ReactNode;
 }) {
   return (
-    <EditingContext.Provider value={{ editable: true, update }}>
+    <EditingContext.Provider value={{ editable: true, update, resumeId }}>
       {children}
     </EditingContext.Provider>
   );

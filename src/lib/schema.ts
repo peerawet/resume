@@ -92,6 +92,23 @@ export const resumeContentSchema = z.object({
   ui: uiTextSchema,
 });
 
+/** ขอบเขตการย่อ/ขยาย/เลื่อนรูปโปรไฟล์ — ต้องตรงกับ clamp ฝั่ง UI (Header.tsx) */
+export const PHOTO_SIZE_MIN = 56;
+export const PHOTO_SIZE_MAX = 160;
+export const PHOTO_ZOOM_MIN = 1;
+export const PHOTO_ZOOM_MAX = 3;
+
+/**
+ * URL รูป: อนุญาตเฉพาะ path ภายใน (/photo.jpg ของเจ้าของเดิม) หรือ https
+ * (Vercel Blob) — กัน javascript: และ data: base64 ก้อนโตเข้า DB
+ */
+const photoUrl = z
+  .string()
+  .max(500)
+  .refine((value) => value.startsWith("/") || /^https:\/\//i.test(value), {
+    message: "Photo URL must be an internal path or https",
+  });
+
 export const contactInfoSchema = z.object({
   phone: z.string().max(50).optional(),
   email: z.string().max(200).optional(),
@@ -99,7 +116,12 @@ export const contactInfoSchema = z.object({
   githubUrl: safeUrl.optional(),
   linkedin: z.string().max(200).optional(),
   linkedinUrl: safeUrl.optional(),
-  photo: z.string().max(500).optional(),
+  photo: photoUrl.optional(),
+  photoSize: z.number().min(PHOTO_SIZE_MIN).max(PHOTO_SIZE_MAX).optional(),
+  photoZoom: z.number().min(PHOTO_ZOOM_MIN).max(PHOTO_ZOOM_MAX).optional(),
+  // clamp จริงตาม zoom ทำตอน render — เก็บหลวมๆ แค่กันค่าหลุดโลก
+  photoX: z.number().min(-150).max(150).optional(),
+  photoY: z.number().min(-150).max(150).optional(),
 });
 
 /**

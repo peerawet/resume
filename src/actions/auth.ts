@@ -1,10 +1,18 @@
 "use server";
 
+import { headers } from "next/headers";
 import { AuthError } from "next-auth";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { signIn } from "@/lib/auth";
+import { rateLimit } from "@/lib/rate-limit";
+
+/** IP ของ client (ตาม x-forwarded-for ที่ Vercel เซ็ตให้) — ใช้เป็น key rate limit */
+async function clientIp(): Promise<string> {
+  const h = await headers();
+  return h.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+}
 
 export interface AuthFormState {
   error?: string;
@@ -24,6 +32,10 @@ export async function loginAction(
 ): Promise<AuthFormState> {
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
+  // §8: หน่วง brute-force รหัสผ่านจาก IP เดียว
+  if (!rateLimit(`login:${await clientIp()}`, 10, 5 * 60_000)) {
+    return { error: "พยายามเข้าสู่ระบบถี่เกินไป — รอสักครู่แล้วลองใหม่", email };
+  }
   try {
     await signIn("credentials", { email, password, redirectTo: "/dashboard" });
     return {};
@@ -54,6 +66,10 @@ export async function signupAction(
   });
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "ข้อมูลไม่ถูกต้อง" };
+  }
+  // §8: กันสมัครรัวๆ จาก IP เดียว (สแปมสร้าง user)
+  if (!rateLimit(`signup:${await clientIp()}`, 5, 15 * 60_000)) {
+    return { error: "สมัครถี่เกินไป — รอสักครู่แล้วลองใหม่" };
   }
   const { name, email: rawEmail, password, confirm } = parsed.data;
   if (password !== confirm) {
