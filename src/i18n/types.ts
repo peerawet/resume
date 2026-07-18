@@ -71,6 +71,13 @@ export interface ContactInfo {
   linkedin?: string;
   linkedinUrl?: string;
   photo?: string;
+  /** ขนาดกรอบรูปบน resume (px) — default 92 */
+  photoSize?: number;
+  /** ซูมรูปภายในกรอบ (≥1) — default 1 */
+  photoZoom?: number;
+  /** เลื่อนตำแหน่งรูปในกรอบ เป็น % ของกรอบ — ใช้ได้เมื่อ zoom > 1 */
+  photoX?: number;
+  photoY?: number;
 }
 
 export interface ResumeContent {

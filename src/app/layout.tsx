@@ -3,7 +3,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Peerawet Chursuk - Resume",
+  title: "Resume Builder — สร้างเรซูเม่ออนไลน์ แชร์เป็นลิงก์",
+  description:
+    "สร้าง resume ที่แก้ไขบนตัวเอกสารได้โดยตรง เผยแพร่เป็นลิงก์สาธารณะ รองรับสองภาษาและพิมพ์เป็น PDF",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -52,9 +52,11 @@ export default function ResumeDocumentView({
   const content = doc[lang] ?? doc[available[0]?.code ?? "en"];
   if (!content) return null;
 
+  // contact.photo คือที่เก็บหลักตั้งแต่ Phase 4 — config.photoUrl เป็น fallback
+  // ของข้อมูลเก่าที่ยังไม่ถูก resave/republish
   const contact = {
     ...doc.contact,
-    photo: config?.photoUrl ?? doc.contact.photo,
+    photo: doc.contact.photo ?? config?.photoUrl,
   };
 
   return (

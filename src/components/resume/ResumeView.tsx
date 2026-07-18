@@ -31,6 +31,8 @@ interface ResumeViewProps {
   config?: ResumeViewConfig;
   /** โหมด editor: เปิด inline editing ทุก field */
   editable?: boolean;
+  /** id ของ resume — ใช้ scope path ตอนอัพโหลดรูป (จำเป็นเมื่อ editable) */
+  resumeId?: string;
   /** ต้องส่งคู่กับ editable — recipe mutate content/contact แล้ว state ฝั่ง editor ถูกอัพเดต */
   onUpdate?: (recipe: (draft: EditableDraft) => void) => void;
   /** แจ้งเมื่อ user ปรับฟ้อนต์/คอลัมน์ — editor ใช้ autosave ลง config */
@@ -48,6 +50,7 @@ export default function ResumeView({
   contact,
   config,
   editable = false,
+  resumeId,
   onUpdate,
   onConfigChange,
 }: ResumeViewProps) {
@@ -243,7 +246,11 @@ export default function ResumeView({
   );
 
   if (editable && onUpdate) {
-    return <EditingProvider update={onUpdate}>{body}</EditingProvider>;
+    return (
+      <EditingProvider update={onUpdate} resumeId={resumeId}>
+        {body}
+      </EditingProvider>
+    );
   }
   return body;
 }

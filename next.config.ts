@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
     "@neondatabase/serverless",
   ],
   // Phase 4 จะเพิ่ม images.remotePatterns สำหรับ Vercel Blob ที่นี่
+  async redirects() {
+    return [
+      { source: "/signin", destination: "/login", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

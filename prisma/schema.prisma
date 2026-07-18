@@ -10,14 +10,15 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String?
-  image     String?
-  createdAt DateTime  @default(now())
-  resumes   Resume[]
-  accounts  Account[]
-  sessions  Session[]
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  image        String?
+  passwordHash String? // credentials login; null = user เก่าที่ยังไม่ตั้งรหัส
+  createdAt    DateTime  @default(now())
+  resumes      Resume[]
+  accounts     Account[]
+  sessions     Session[]
 }
 
 model Resume {

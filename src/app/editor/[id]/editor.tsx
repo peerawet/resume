@@ -36,8 +36,21 @@ interface EditorProps {
 }
 
 export default function Editor({ resume }: EditorProps) {
-  const [doc, setDoc] = useState(resume.doc);
-  const [config, setConfig] = useState(resume.config);
+  // migrate ข้อมูลเก่า: รูปที่เคยเก็บใน config.photoUrl ย้ายเข้า contact.photo
+  // (ที่เก็บจริงตั้งแต่ Phase 4 — ติดไปกับ snapshot ตอน publish) แล้ว persist เมื่อ autosave แรก
+  const [doc, setDoc] = useState(() => {
+    if (resume.config.photoUrl && !resume.doc.contact.photo) {
+      return {
+        ...resume.doc,
+        contact: { ...resume.doc.contact, photo: resume.config.photoUrl },
+      };
+    }
+    return resume.doc;
+  });
+  const [config, setConfig] = useState(() => {
+    const { photoUrl: _legacy, ...rest } = resume.config;
+    return rest as ResumeConfig;
+  });
   const [title, setTitle] = useState(resume.title);
   const [isPublic, setIsPublic] = useState(resume.isPublic);
   const [saveState, setSaveState] = useState<SaveState>("saved");
@@ -226,12 +239,10 @@ export default function Editor({ resume }: EditorProps) {
           <ResumeView
             key={lang}
             content={content}
-            contact={{
-              ...doc.contact,
-              photo: config.photoUrl ?? doc.contact.photo,
-            }}
+            contact={doc.contact}
             config={config}
             editable
+            resumeId={resume.id}
             onUpdate={update}
             onConfigChange={(next) => setConfig((prev) => ({ ...prev, ...next }))}
           />

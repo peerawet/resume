@@ -12,6 +12,15 @@ import {
   resumeDocumentSchema,
 } from "@/lib/schema";
 import { createStarterDocument } from "@/lib/template";
+import {
+  deleteAllResumeBlobs,
+  deleteResumeBlobIfUnused,
+} from "@/lib/blob-cleanup";
+
+/** URL รูปใน draft/published — ใช้เทียบก่อนลบ blob เก่า */
+function photoOf(doc: unknown): string | undefined {
+  return (doc as { contact?: { photo?: string } } | null)?.contact?.photo;
+}
 
 const updateDraftSchema = z.object({
   title: z.string().min(1).max(200),
@@ -51,7 +60,7 @@ export async function createResume() {
 /** autosave draft จาก editor — validate ทั้งก้อนก่อนเขียนเสมอ (plan §8) */
 export async function updateDraft(resumeId: string, input: unknown) {
   const user = await requireUser();
-  await requireOwnedResume(resumeId, user.id);
+  const previous = await requireOwnedResume(resumeId, user.id);
   const parsed = updateDraftSchema.parse(input);
   await prisma.resume.update({
     where: { id: resumeId },
@@ -61,6 +70,11 @@ export async function updateDraft(resumeId: string, input: unknown) {
       config: parsed.config,
     },
   });
+  // รูปเดิมหลุดจาก draft (เปลี่ยน/ลบรูป) → ลบ blob ทิ้ง ถ้า published ไม่อ้างอยู่
+  await deleteResumeBlobIfUnused(photoOf(previous.content), resumeId, [
+    parsed.doc,
+    previous.published,
+  ]);
   revalidatePath("/dashboard");
   return { ok: true as const };
 }
@@ -69,6 +83,7 @@ export async function deleteResume(resumeId: string) {
   const user = await requireUser();
   await requireOwnedResume(resumeId, user.id);
   await prisma.resume.delete({ where: { id: resumeId } });
+  await deleteAllResumeBlobs(resumeId);
   revalidatePath("/dashboard");
 }
 
@@ -84,6 +99,10 @@ export async function publishResume(resumeId: string) {
       publishedAt: new Date(),
     },
   });
+  // snapshot ใหม่ทับของเก่า — รูปที่ published เดิมอ้างไว้อาจกลายเป็น orphan
+  await deleteResumeBlobIfUnused(photoOf(resume.published), resume.id, [
+    resume.content,
+  ]);
   revalidatePath("/dashboard");
   revalidatePath(`/r/${resume.slug}`);
 }
