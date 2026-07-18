@@ -85,8 +85,9 @@ export default function ResumeDocumentView({
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-slate-200 pb-20 pt-16 md:py-10 print:bg-white print:py-0">
-      <div className="fixed right-4 top-4 z-50 flex items-center gap-2 print:hidden">
+    <div className="flex flex-1 flex-col items-center bg-slate-200 pb-20 print:bg-white print:py-0">
+      {/* แถบควบคุมอยู่ใน flow ใต้ navbar (ไม่ fixed จะได้ไม่ทับกัน) แล้ว sticky ตอน scroll */}
+      <div className="sticky top-2 z-40 mt-3 flex w-full max-w-5xl flex-wrap items-center justify-end gap-2 px-4 print:hidden">
         {editing ? (
           <>
             <span className="rounded-md bg-amber-100 px-2.5 py-2 text-xs font-semibold text-amber-800 shadow-sm">
@@ -134,7 +135,7 @@ export default function ResumeDocumentView({
         </button>
       </div>
 
-      <div ref={contentRef} className="w-full md:w-auto">
+      <div ref={contentRef} className="mt-4 w-full md:mt-6 md:w-auto print:mt-0">
         <ResumeView
           key={editing ? `edit-${lang}` : `view-${lang}`}
           content={content}

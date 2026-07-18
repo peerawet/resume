@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { auth, signOut } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import {
   createResumeAndGo,
@@ -27,24 +27,13 @@ export default async function DashboardPage() {
   });
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-3xl px-4 py-10">
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-navy">
-            Resume ของฉัน
-          </h1>
-          <p className="mt-1 text-sm text-slate-500">{session.user.email}</p>
-        </div>
-        <form
-          action={async () => {
-            "use server";
-            await signOut({ redirectTo: "/login" });
-          }}
-        >
-          <button className="rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100">
-            ออกจากระบบ
-          </button>
-        </form>
+    <main className="mx-auto w-full max-w-3xl px-4 py-10">
+      {/* ปุ่มออกจากระบบย้ายไปอยู่ใน Navbar (root layout) แล้ว */}
+      <div>
+        <h1 className="font-display text-2xl font-bold text-navy">
+          Resume ของฉัน
+        </h1>
+        <p className="mt-1 text-sm text-slate-500">{session.user.email}</p>
       </div>
 
       <form action={createResumeAndGo} className="mt-6">

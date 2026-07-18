@@ -163,7 +163,7 @@ export default function Editor({ resume }: EditorProps) {
   const content = doc[lang];
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-200">
+    <div className="flex flex-1 flex-col bg-slate-200">
       {/* Toolbar */}
       <div className="sticky top-0 z-50 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-slate-300 bg-white px-4 py-2.5 shadow-sm">
         <Link
