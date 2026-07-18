@@ -1,9 +1,11 @@
+"use client";
+
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Printer } from "lucide-react";
-import ResumePage from "./components/ResumePage";
-import { LanguageProvider, useLanguage } from "./context/language";
-import { languages } from "./i18n";
+import ResumeView from "@/components/resume/ResumeView";
+import { LanguageProvider, useLanguage } from "@/context/language";
+import { contact, languages } from "@/i18n";
 
 function Toolbar() {
   const { lang, setLang, t } = useLanguage();
@@ -39,17 +41,17 @@ function Toolbar() {
         </button>
       </div>
 
-      <div ref={contentRef}>
-        <ResumePage />
+      <div ref={contentRef} className="w-full md:w-auto">
+        <ResumeView content={t} contact={contact} />
       </div>
     </>
   );
 }
 
-export default function App() {
+export default function Home() {
   return (
     <LanguageProvider>
-      <div className="flex min-h-screen flex-col items-center bg-slate-200 py-10 print:bg-white print:py-0">
+      <div className="flex min-h-screen flex-col items-center bg-slate-200 pb-20 pt-16 md:py-10 print:bg-white print:py-0">
         <Toolbar />
       </div>
     </LanguageProvider>

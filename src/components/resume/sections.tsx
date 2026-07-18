@@ -1,9 +1,11 @@
+"use client";
+
 import { ExternalLink } from "lucide-react";
 import SectionTitle from "./SectionTitle";
-import { useLanguage } from "../context/language";
+import { useResumeData } from "./resume-data";
 
 export function Profile() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.profile}</SectionTitle>
@@ -13,7 +15,7 @@ export function Profile() {
 }
 
 export function TechStack() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.techStack}</SectionTitle>
@@ -41,7 +43,7 @@ export function TechStack() {
 }
 
 export function Recognition() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.recognition}</SectionTitle>
@@ -60,7 +62,7 @@ export function Recognition() {
 }
 
 export function Experience() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.experience}</SectionTitle>
@@ -68,7 +70,7 @@ export function Experience() {
         {t.experience.map((item) => (
           <div key={`${item.role}-${item.period}`} className="relative">
             <span className="absolute left-[-25px] top-[6px] h-[9px] w-[9px] rounded-full border-2 border-navy bg-white" />
-            <div className="flex items-baseline justify-between gap-2">
+            <div className="flex flex-col gap-0.5 md:flex-row md:items-baseline md:justify-between md:gap-2 print:flex-row print:items-baseline print:gap-2">
               <h3 className="text-[calc(16.5px+var(--fs-d,0px))] font-bold">
                 {item.role}
                 {item.note && (
@@ -98,7 +100,7 @@ export function Experience() {
 }
 
 export function Education() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.education}</SectionTitle>
@@ -132,7 +134,7 @@ const statusStyles: Record<string, string> = {
 };
 
 export function Projects() {
-  const { t } = useLanguage();
+  const { content: t } = useResumeData();
   return (
     <section>
       <SectionTitle>{t.ui.sections.projects}</SectionTitle>

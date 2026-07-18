@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   useContext,
@@ -5,8 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { content } from "../i18n";
-import type { Language, ResumeContent } from "../i18n/types";
+import { content } from "@/i18n";
+import type { Language, ResumeContent } from "@/i18n/types";
 
 interface LanguageContextValue {
   lang: Language;
@@ -16,15 +18,13 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-function initialLang(): Language {
-  if (typeof window !== "undefined" && window.location.hash === "#th") {
-    return "th";
-  }
-  return "en";
-}
-
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Language>(initialLang);
+  // เริ่ม "en" เสมอ (ตรงกับ SSR) แล้วค่อยอ่าน #th หลัง mount — กัน hydration mismatch
+  const [lang, setLang] = useState<Language>("en");
+
+  useEffect(() => {
+    if (window.location.hash === "#th") setLang("th");
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = lang;

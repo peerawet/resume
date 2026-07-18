@@ -1,3 +1,5 @@
+"use client";
+
 import { useLayoutEffect, useRef, useState } from "react";
 import { GripVertical } from "lucide-react";
 import Header from "./Header";
@@ -9,22 +11,50 @@ import {
   Recognition,
   TechStack,
 } from "./sections";
-import { useLanguage } from "../context/language";
+import { ResumeDataProvider } from "./resume-data";
+import type { ResumeContent } from "@/i18n/types";
+import type { Contact } from "@/i18n";
 
 const PAGE_MM = 297;
 const FONT_STEP = 0.5;
 const LEFT_PCT_MIN = 18;
 const LEFT_PCT_MAX = 45;
 
-export default function ResumePage() {
-  const { lang, t } = useLanguage();
+export interface ResumeViewConfig {
+  fontDelta?: number;
+  leftPct?: number;
+}
+
+interface ResumeViewProps {
+  content: ResumeContent;
+  contact: Contact;
+  config?: ResumeViewConfig;
+}
+
+/**
+ * Presentational resume — ตัวเดียวใช้ทั้งหน้า public / editor / preview
+ * (Phase ถัดไปจะเพิ่ม `editable` + callback เซฟ config)
+ *
+ * Layout: < md เป็น single column (ไม่มี A4/auto-fit/column drag),
+ * ≥ md และตอน print เป็นกระดาษ A4 เหมือนเดิม
+ */
+export default function ResumeView({ content, contact, config }: ResumeViewProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const columnsRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
-  const [fontDelta, setFontDelta] = useState(0);
-  const [leftPct, setLeftPct] = useState(28);
+  const [fontDelta, setFontDelta] = useState(config?.fontDelta ?? 0);
+  const [leftPct, setLeftPct] = useState(config?.leftPct ?? 28);
   const [dragging, setDragging] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Fit the content to exactly one A4 sheet at the *base* font size. If it is
   // taller than the page we scale it down; the min-height is divided back out
@@ -36,20 +66,25 @@ export default function ResumePage() {
   // it on one page, cancelling out the change (it even looked inverted). With
   // the fit fixed to the base font, the delta now grows/shrinks the resume for
   // real — it may overflow the page, which is the user's call.
+  // (deps จงใจไม่มี fontDelta; บน mobile ปิด auto-fit — layout ไม่ใช่ A4)
   useLayoutEffect(() => {
+    if (!isDesktop) {
+      setScale(1);
+      return;
+    }
     const page = pageRef.current;
-    const content = contentRef.current;
-    if (!page || !content) return;
-    const previous = content.style.cssText;
-    content.style.minHeight = "0";
-    content.style.transform = "none";
-    content.style.width = "100%";
-    content.style.setProperty("--fs-d", "0px");
+    const el = contentRef.current;
+    if (!page || !el) return;
+    const previous = el.style.cssText;
+    el.style.minHeight = "0";
+    el.style.transform = "none";
+    el.style.width = "100%";
+    el.style.setProperty("--fs-d", "0px");
     const available = page.clientHeight;
-    const needed = content.scrollHeight;
-    content.style.cssText = previous;
+    const needed = el.scrollHeight;
+    el.style.cssText = previous;
     setScale(needed > available ? available / needed : 1);
-  }, [lang, leftPct]);
+  }, [content, leftPct, isDesktop]);
 
   const startColumnDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -77,40 +112,47 @@ export default function ResumePage() {
   const adjustFont = (steps: number) =>
     setFontDelta((current) => current + steps * FONT_STEP);
 
+  const fitStyles: React.CSSProperties = isDesktop
+    ? {
+        minHeight: `${PAGE_MM / scale}mm`,
+        transform: `scale(${scale})`,
+        transformOrigin: "top left",
+        width: `${100 / scale}%`,
+      }
+    : {};
+
   return (
-    <>
+    <ResumeDataProvider value={{ content, contact }}>
       <div
         ref={pageRef}
-        className="h-[297mm] w-[210mm] overflow-hidden bg-white shadow-2xl print:shadow-none"
+        className="w-full bg-white md:h-[297mm] md:w-[210mm] md:overflow-hidden md:shadow-2xl print:h-[297mm] print:w-[210mm] print:overflow-hidden print:shadow-none"
       >
         <div
           ref={contentRef}
-          className="flex flex-col"
+          className="flex min-h-full flex-col"
           style={
             {
               "--fs-d": `${fontDelta}px`,
-              minHeight: `${PAGE_MM / scale}mm`,
-              transform: `scale(${scale})`,
-              transformOrigin: "top left",
-              width: `${100 / scale}%`,
+              ...fitStyles,
             } as React.CSSProperties
           }
         >
           <Header />
 
-          <div ref={columnsRef} className="flex min-h-0 flex-1">
-            <aside
-              className="flex shrink-0 flex-col gap-5 bg-slate-50 px-6 py-6"
-              style={{ width: `${leftPct}%` }}
-            >
+          <div
+            ref={columnsRef}
+            className="flex flex-col md:min-h-0 md:flex-1 md:flex-row print:min-h-0 print:flex-1 print:flex-row"
+            style={{ "--left-w": `${leftPct}%` } as React.CSSProperties}
+          >
+            <aside className="flex flex-col gap-5 bg-slate-50 px-5 py-6 md:w-[var(--left-w)] md:shrink-0 md:px-6 print:w-[var(--left-w)] print:shrink-0 print:px-6">
               <TechStack />
               <Recognition />
               <Education />
             </aside>
             {/* Column divider. The 1px line is what prints; the wider grip and
                hover highlight are screen-only affordances that tell the user the
-               boundary can be dragged. */}
-            <div className="relative w-px shrink-0 bg-slate-200">
+               boundary can be dragged. Hidden on mobile — single column. */}
+            <div className="relative hidden w-px shrink-0 bg-slate-200 md:block print:block">
               <div
                 onPointerDown={startColumnDrag}
                 title="ลากเพื่อปรับความกว้างซ้าย–ขวา / Drag to resize columns"
@@ -134,18 +176,18 @@ export default function ResumePage() {
                 </span>
               </div>
             </div>
-            <main className="flex min-w-0 flex-1 flex-col gap-5 px-9 py-6">
+            <main className="flex min-w-0 flex-1 flex-col gap-5 px-5 py-6 md:px-9 print:px-9">
               <Profile />
               <Experience />
               <Projects />
             </main>
           </div>
 
-          <footer className="tracked mt-auto flex items-center justify-between border-t border-slate-200 px-9 py-2.5 text-[calc(12px+var(--fs-d,0px))] uppercase tracking-[0.14em] text-slate-400">
+          <footer className="tracked mt-auto flex items-center justify-between gap-2 border-t border-slate-200 px-5 py-2.5 text-[calc(12px+var(--fs-d,0px))] uppercase tracking-[0.14em] text-slate-400 md:px-9 print:px-9">
             <span>
-              {t.personal.name} · {t.ui.footerRole}
+              {content.personal.name} · {content.ui.footerRole}
             </span>
-            <span>{t.personal.location}</span>
+            <span>{content.personal.location}</span>
           </footer>
         </div>
       </div>
@@ -173,6 +215,6 @@ export default function ResumePage() {
           A+
         </button>
       </div>
-    </>
+    </ResumeDataProvider>
   );
 }

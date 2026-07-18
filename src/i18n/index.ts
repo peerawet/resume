@@ -1,4 +1,3 @@
-import photo from "../assets/photo.jpg";
 import enRaw from "./en.json";
 import thRaw from "./th.json";
 import type { Language, ResumeContent } from "./types";
@@ -16,8 +15,10 @@ export const contact = {
   githubUrl: "https://github.com/peerawet",
   linkedin: "linkedin.com/in/peerawet-chursuk",
   linkedinUrl: "https://www.linkedin.com/in/peerawet-chursuk/",
-  photo,
+  photo: "/photo.jpg",
 };
+
+export type Contact = typeof contact;
 
 export const languages: { code: Language; label: string }[] = [
   { code: "en", label: "EN" },
