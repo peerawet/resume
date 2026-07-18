@@ -3,6 +3,17 @@
 > เอกสารนี้เขียนไว้ให้ session ถัดไปทำงานต่อได้โดยไม่ต้องอ่านบทสนทนาเดิม
 > ภาษา: ผู้ใช้ (เจ้าของโปรเจกต์) สื่อสารภาษาไทย — ตอบ/รายงานเป็นภาษาไทย, โค้ดและ identifier เป็นอังกฤษ
 
+## 0. สถานะล่าสุด (2026-07-18) — branch `saas`
+
+- **Phase 1 เสร็จ + commit แล้ว** — Next.js 15 App Router + Tailwind v4, `<ResumeView content contact config>` แยกแล้ว (sections อ่านผ่าน `ResumeDataContext`), mobile stack < md (ปิด auto-fit/column-drag), print ยังบังคับ A4, feature §3 ครบไม่ regress
+- **Phase 2 เสร็จเกือบหมด + commit แล้ว** — Prisma schema + migration `init` apply กับ Neon จริงแล้ว, seed แล้ว: **resume เจ้าของอยู่ที่ `/r/j7Ols3I1qu`** (user `peerawet1996@gmail.com`), `/dashboard` + `/r/[slug]` + Server Actions (create/delete/publish/unpublish + ownership check) ทำงานแล้ว ทดสอบผ่าน dev server จริง
+- **ค้างอย่างเดียว: OAuth credentials** — ผู้ใช้ต้องสร้าง Google/GitHub OAuth app แล้วใส่ `AUTH_GOOGLE_ID/SECRET`, `AUTH_GITHUB_ID/SECRET` ใน `.env` → แล้วค่อยเทสต์ login (DoD Phase 2 ข้อสุดท้าย)
+- การตัดสินใจที่เกิดขึ้นระหว่างทำ (จาก §12 Q1): `content`/`published` เก็บรูปทรง `{ en?, th?, contact }` — บังคับอย่างน้อย 1 ภาษา, resume ใหม่เริ่ม en เดียว เพิ่ม th ทีหลังได้ (superset รองรับทั้งสองคำตอบ), `contact` ย้ายเข้า document แล้ว (`ContactInfo` optional ทุก field)
+- Gotcha ที่แก้แล้ว: **ห้ามใช้ package `ws` กับ Next** (bundle แล้ว `bufferUtil.mask` พัง) — ใช้ `globalThis.WebSocket` ของ Node 22 + `serverExternalPackages` ใน next.config.ts แทน
+- ⚠️ `.env.example` ในเวิร์กกิ้งทรียังมี Neon credentials จริงที่ผู้ใช้วางไว้ — **ห้าม commit** (ค่าจริงถูกย้ายไป `.env` แล้ว รวมถึง `DIRECT_URL` ที่แก้เป็น host ไม่มี `-pooler` และ `AUTH_SECRET` ที่ generate แล้ว); ควรคืน placeholder แล้ว rotate password ถ้าเผลอ commit
+- Local dev: port 3000/3001 มีแอปอื่นใช้อยู่ — ใช้ `npx next dev -p 3777`
+- ถัดไป: เทสต์ login เมื่อได้ OAuth creds → **Phase 3 (inline editor)**
+
 ## 1. เป้าหมาย
 
 เปลี่ยนโปรเจกต์ resume ส่วนตัว (Vite SPA) ให้เป็น **SaaS resume builder**:
