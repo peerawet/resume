@@ -62,6 +62,17 @@ export interface UiText {
   footerRole: string;
 }
 
+/** ข้อมูลติดต่อ — ใช้ร่วมกันทุกภาษา ทุก field เป็น optional สำหรับ resume ของ user ใหม่ */
+export interface ContactInfo {
+  phone?: string;
+  email?: string;
+  github?: string;
+  githubUrl?: string;
+  linkedin?: string;
+  linkedinUrl?: string;
+  photo?: string;
+}
+
 export interface ResumeContent {
   personal: Personal;
   profile: string;
