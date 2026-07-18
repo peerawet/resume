@@ -26,7 +26,15 @@
   - Gotcha: React 19 reset ฟอร์มหลัง action คืน error → loginAction คืน `email` กลับมาใส่ defaultValue
   - **เจ้าของยังไม่มีรหัสผ่าน** — ตั้งด้วย `npx tsx prisma/set-password.ts peerawet1996@gmail.com <รหัสผ่าน>` แล้ว login ที่ /login ได้เลย
   - ตาราง Account/Session/VerificationToken คงไว้ใน schema เผื่อ OAuth กลับมาภายหลัง; `@auth/prisma-adapter` ไม่ได้ใช้แล้วแต่ยังอยู่ใน deps
-- ถัดไป: **Phase 4 (Vercel Blob upload + hardening §8)** — ต้องมี Vercel project + Blob store ก่อน
+- **Phase 4 เขียนเสร็จ + E2E ผ่าน (2026-07-18)** — upload รูป (Vercel Blob) + ย่อ/ขยาย/ซูม/ลากจัดตำแหน่งรูป + hardening §8:
+  - **ที่เก็บรูปย้ายเป็น `contact.photo` ใน document** (ติดไปกับ snapshot ตอน publish) — `config.photoUrl` เป็น legacy fallback; editor migrate อัตโนมัติตอนโหลด (ย้ายค่าเข้า contact แล้วตัดออกจาก config เมื่อ autosave แรก) — ของเจ้าของ (seed `/photo.jpg`) จะ migrate เองเมื่อเปิด editor
+  - **ฟีเจอร์รูปใหม่ใน `contact`**: `photoSize` (กรอบ 56–160px, default 92), `photoZoom` (1–3×), `photoX/photoY` (% ของกรอบ, clamp ±50·(zoom−1) — สูตร: translate ก่อน scale) — UI อยู่ใน `src/components/resume/Photo.tsx`: แตะรูปเปิดแผง (อัพโหลด/ลบ/slider ขนาด+ซูม), ลากที่รูปเพื่อ pan (commit ตอนปล่อย, ระหว่างลากเป็น local state), แผงเปิดอยู่ต้องยกรูป z-30 เหนือ backdrop ไม่งั้นลากไม่ได้
+  - **Upload flow**: client บีบรูปก่อน (`src/lib/image.ts` canvas ≤512px → webp fallback jpeg, ไม่มี dependency เพิ่ม) → `upload()` จาก `@vercel/blob/client` pathname `resumes/{resumeId}/photo.*` → `/api/upload` (`onBeforeGenerateToken`: เช็ค session+ownership+rate limit 20/10นาที, จำกัด jpeg/png/webp 5MB, `addRandomSuffix`) → URL เข้า `contact.photo` ผ่าน autosave ปกติ; **แสดงด้วย `<img>` ธรรมดา ไม่ใช่ next/image** (รูปถูกบีบแล้ว + เลี่ยงโควต้า Image Optimization + transform zoom/pan ตรงไปตรงมา จึงไม่ต้องมี images.remotePatterns)
+  - **ลบ blob เก่า**: ไม่ใช้ `onUploadCompleted` (localhost ไม่ยิง) — ทำใน `src/lib/blob-cleanup.ts` แบบ best-effort: `updateDraft` ลบรูปที่หลุดจาก draft (ถ้า published ไม่อ้าง), `publishResume` ลบรูปของ published เก่า (ถ้า draft ไม่อ้าง), `deleteResume` ลบทั้ง prefix `resumes/{id}/`
+  - **Hardening เพิ่ม**: rate limit in-memory (`src/lib/rate-limit.ts` — จำกัดต่อ instance, พอสำหรับตอนนี้) ที่ upload + login (10/5นาที/IP) + signup (5/15นาที/IP); zod จำกัด `contact.photo` ให้ขึ้นต้น `/` หรือ `https://` เท่านั้น (กัน javascript:/data:)
+  - E2E ผ่าน (สคริปต์ชั่วคราว ไม่ commit): panel เปิด, ปรับขนาด/ซูม/ลาก pan + clamp + persist + guest เห็นตาม, upload ไม่มี token โชว์ error ไม่พังflow, token request โดนปฏิเสธทั้ง anon/ข้าม user/pathname ไม่ตรง, ลบรูปกลับ placeholder
+  - **ค้าง: ผูก Blob store จริง** — สร้าง Vercel project + Blob store แล้วใส่ `BLOB_READ_WRITE_TOKEN` ใน `.env` (หรือ `vercel env pull`) → ค่อยเทสต์อัพโหลดจริง end-to-end บน preview deployment
+- ถัดไป: ตั้ง Vercel project + Blob store → deploy → เทสต์ upload จริง → Phase 5 (คุยกับผู้ใช้ก่อน)
 
 ## 1. เป้าหมาย
 
