@@ -12,8 +12,7 @@ import {
   TechStack,
 } from "./sections";
 import { ResumeDataProvider } from "./resume-data";
-import type { ResumeContent } from "@/i18n/types";
-import type { Contact } from "@/i18n";
+import type { ContactInfo, ResumeContent } from "@/i18n/types";
 
 const PAGE_MM = 297;
 const FONT_STEP = 0.5;
@@ -27,7 +26,7 @@ export interface ResumeViewConfig {
 
 interface ResumeViewProps {
   content: ResumeContent;
-  contact: Contact;
+  contact: ContactInfo;
   config?: ResumeViewConfig;
 }
 

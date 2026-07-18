@@ -1,12 +1,11 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
-import type { ResumeContent } from "@/i18n/types";
-import type { Contact } from "@/i18n";
+import type { ContactInfo, ResumeContent } from "@/i18n/types";
 
 interface ResumeDataValue {
   content: ResumeContent;
-  contact: Contact;
+  contact: ContactInfo;
 }
 
 const ResumeDataContext = createContext<ResumeDataValue | null>(null);

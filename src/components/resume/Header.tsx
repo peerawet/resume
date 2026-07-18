@@ -41,11 +41,17 @@ export default function Header() {
   return (
     <header className="flex flex-col gap-4 border-b-2 border-navy bg-white px-5 pb-5 pt-6 md:flex-row md:items-center md:justify-between md:gap-6 md:px-9 md:pt-7 print:flex-row print:items-center print:justify-between print:gap-6 print:px-9 print:pt-7">
       <div className="flex items-center gap-4 md:gap-5 print:gap-5">
-        <img
-          src={contact.photo}
-          alt={personal.name}
-          className="h-[92px] w-[92px] rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
-        />
+        {contact.photo ? (
+          <img
+            src={contact.photo}
+            alt={personal.name}
+            className="h-[92px] w-[92px] rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
+          />
+        ) : (
+          <span className="flex h-[92px] w-[92px] items-center justify-center rounded-full bg-slate-200 font-display text-[calc(36px+var(--fs-d,0px))] font-bold text-slate-400 ring-1 ring-slate-300">
+            {personal.name.trim().charAt(0).toUpperCase() || "?"}
+          </span>
+        )}
         <div>
           <h1 className="font-display text-[calc(28px+var(--fs-d,0px))] font-bold leading-tight tracking-tight md:text-[calc(36px+var(--fs-d,0px))] print:text-[calc(36px+var(--fs-d,0px))]">
             {personal.name}
@@ -59,39 +65,57 @@ export default function Header() {
         </div>
       </div>
       <div className="space-y-1 text-left text-[calc(14.5px+var(--fs-d,0px))] md:shrink-0 md:text-right print:shrink-0 print:text-right">
-        <ContactLine icon={MapPin} bold>
-          {personal.location}
-        </ContactLine>
-        <ContactLine icon={Phone}>
-          <a href={`tel:${contact.phone}`} className="hover:underline">
-            {contact.phone}
-          </a>
-        </ContactLine>
-        <ContactLine icon={Mail}>
-          <a href={`mailto:${contact.email}`} className="hover:underline">
-            {contact.email}
-          </a>
-        </ContactLine>
-        <ContactLine icon={Github}>
-          <a
-            href={contact.githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:underline"
-          >
-            {contact.github}
-          </a>
-        </ContactLine>
-        <ContactLine icon={Linkedin}>
-          <a
-            href={contact.linkedinUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="hover:underline"
-          >
-            {contact.linkedin}
-          </a>
-        </ContactLine>
+        {personal.location && (
+          <ContactLine icon={MapPin} bold>
+            {personal.location}
+          </ContactLine>
+        )}
+        {contact.phone && (
+          <ContactLine icon={Phone}>
+            <a href={`tel:${contact.phone}`} className="hover:underline">
+              {contact.phone}
+            </a>
+          </ContactLine>
+        )}
+        {contact.email && (
+          <ContactLine icon={Mail}>
+            <a href={`mailto:${contact.email}`} className="hover:underline">
+              {contact.email}
+            </a>
+          </ContactLine>
+        )}
+        {contact.github && (
+          <ContactLine icon={Github}>
+            {contact.githubUrl ? (
+              <a
+                href={contact.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                {contact.github}
+              </a>
+            ) : (
+              contact.github
+            )}
+          </ContactLine>
+        )}
+        {contact.linkedin && (
+          <ContactLine icon={Linkedin}>
+            {contact.linkedinUrl ? (
+              <a
+                href={contact.linkedinUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                {contact.linkedin}
+              </a>
+            ) : (
+              contact.linkedin
+            )}
+          </ContactLine>
+        )}
       </div>
     </header>
   );
