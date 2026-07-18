@@ -190,7 +190,8 @@ export default function ResumePhoto() {
           }
         }}
         className={`block rounded-full outline-2 outline-offset-2 outline-dashed transition-[outline-color] ${
-          open ? "outline-navy/60" : "outline-transparent hover:outline-navy/40"
+          // ตอนแผงเปิด ต้องลอยเหนือ backdrop ไม่งั้นลากรูปจัดตำแหน่งไม่ได้
+          open ? "relative z-30 outline-navy/60" : "outline-transparent hover:outline-navy/40"
         } ${canPan ? "cursor-move touch-none" : "cursor-pointer"}`}
       >
         {frame}
