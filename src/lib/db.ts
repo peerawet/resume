@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaNeon } from "@prisma/adapter-neon";
 import { neonConfig } from "@neondatabase/serverless";
-import ws from "ws";
 
-// Node runtime ต้องชี้ WebSocket constructor ให้ Neon driver เอง
-neonConfig.webSocketConstructor = ws;
+// Node 22+ มี WebSocket ในตัว — ไม่ต้องพึ่ง package `ws`
+// (ห้ามใช้ `ws` ที่ถูก Next bundle: bufferUtil.mask พังตอน runtime)
+neonConfig.webSocketConstructor = globalThis.WebSocket;
 
 function createClient() {
   const adapter = new PrismaNeon({
