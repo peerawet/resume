@@ -28,3 +28,17 @@ html[lang="th"] .tracked {
   letter-spacing: 0.02em;
   text-transform: none;
 }
+
+/* input/textarea ของ inline editor ต้องสืบทอด typography ของจุดที่มันแทนที่เป๊ะ */
+.editable-input {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  font-style: inherit;
+}
+.editable-input:focus {
+  outline-style: solid;
+}

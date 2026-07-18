@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useResumeData } from "./resume-data";
+import { EditableText, UrlEditButton, useEditing } from "./editing";
 
 function ContactLine({
   icon: Icon,
@@ -36,6 +37,7 @@ function ContactLine({
 
 export default function Header() {
   const { content, contact } = useResumeData();
+  const { editable, update } = useEditing();
   const { personal } = content;
 
   return (
@@ -48,45 +50,94 @@ export default function Header() {
             className="h-[92px] w-[92px] rounded-full bg-slate-200 object-cover ring-1 ring-slate-300"
           />
         ) : (
-          <span className="flex h-[92px] w-[92px] items-center justify-center rounded-full bg-slate-200 font-display text-[calc(36px+var(--fs-d,0px))] font-bold text-slate-400 ring-1 ring-slate-300">
+          <span
+            title={editable ? "อัพโหลดรูปได้ใน Phase 4" : undefined}
+            className="flex h-[92px] w-[92px] items-center justify-center rounded-full bg-slate-200 font-display text-[calc(36px+var(--fs-d,0px))] font-bold text-slate-400 ring-1 ring-slate-300"
+          >
             {personal.name.trim().charAt(0).toUpperCase() || "?"}
           </span>
         )}
         <div>
           <h1 className="font-display text-[calc(28px+var(--fs-d,0px))] font-bold leading-tight tracking-tight md:text-[calc(36px+var(--fs-d,0px))] print:text-[calc(36px+var(--fs-d,0px))]">
-            {personal.name}
+            <EditableText
+              value={personal.name}
+              placeholder="ชื่อ-นามสกุล"
+              onCommit={(v) => update((d) => void (d.content.personal.name = v))}
+            />
           </h1>
           <p className="mt-1 text-[calc(17px+var(--fs-d,0px))] font-semibold text-slate-600">
-            {personal.title}
+            <EditableText
+              value={personal.title}
+              placeholder="ตำแหน่งงาน"
+              onCommit={(v) => update((d) => void (d.content.personal.title = v))}
+            />
           </p>
           <p className="mt-1.5 text-[calc(15px+var(--fs-d,0px))] italic text-slate-500">
-            {personal.motto}
+            <EditableText
+              value={personal.motto}
+              placeholder="คำคม/แนวทางการทำงานสั้นๆ"
+              onCommit={(v) => update((d) => void (d.content.personal.motto = v))}
+            />
           </p>
         </div>
       </div>
       <div className="space-y-1 text-left text-[calc(14.5px+var(--fs-d,0px))] md:shrink-0 md:text-right print:shrink-0 print:text-right">
-        {personal.location && (
+        {(editable || personal.location) && (
           <ContactLine icon={MapPin} bold>
-            {personal.location}
+            <EditableText
+              value={personal.location}
+              placeholder="เมือง, ประเทศ"
+              onCommit={(v) => update((d) => void (d.content.personal.location = v))}
+            />
           </ContactLine>
         )}
-        {contact.phone && (
+        {(editable || contact.phone) && (
           <ContactLine icon={Phone}>
-            <a href={`tel:${contact.phone}`} className="hover:underline">
-              {contact.phone}
-            </a>
+            {editable ? (
+              <EditableText
+                value={contact.phone ?? ""}
+                placeholder="เบอร์โทร"
+                onCommit={(v) => update((d) => void (d.contact.phone = v || undefined))}
+              />
+            ) : (
+              <a href={`tel:${contact.phone}`} className="hover:underline">
+                {contact.phone}
+              </a>
+            )}
           </ContactLine>
         )}
-        {contact.email && (
+        {(editable || contact.email) && (
           <ContactLine icon={Mail}>
-            <a href={`mailto:${contact.email}`} className="hover:underline">
-              {contact.email}
-            </a>
+            {editable ? (
+              <EditableText
+                value={contact.email ?? ""}
+                placeholder="อีเมล"
+                onCommit={(v) => update((d) => void (d.contact.email = v || undefined))}
+              />
+            ) : (
+              <a href={`mailto:${contact.email}`} className="hover:underline">
+                {contact.email}
+              </a>
+            )}
           </ContactLine>
         )}
-        {contact.github && (
+        {(editable || contact.github) && (
           <ContactLine icon={Github}>
-            {contact.githubUrl ? (
+            {editable ? (
+              <>
+                <EditableText
+                  value={contact.github ?? ""}
+                  placeholder="github.com/username"
+                  onCommit={(v) => update((d) => void (d.contact.github = v || undefined))}
+                />{" "}
+                <UrlEditButton
+                  url={contact.githubUrl}
+                  onCommit={(v) =>
+                    update((d) => void (d.contact.githubUrl = v || undefined))
+                  }
+                />
+              </>
+            ) : contact.githubUrl ? (
               <a
                 href={contact.githubUrl}
                 target="_blank"
@@ -100,9 +151,25 @@ export default function Header() {
             )}
           </ContactLine>
         )}
-        {contact.linkedin && (
+        {(editable || contact.linkedin) && (
           <ContactLine icon={Linkedin}>
-            {contact.linkedinUrl ? (
+            {editable ? (
+              <>
+                <EditableText
+                  value={contact.linkedin ?? ""}
+                  placeholder="linkedin.com/in/username"
+                  onCommit={(v) =>
+                    update((d) => void (d.contact.linkedin = v || undefined))
+                  }
+                />{" "}
+                <UrlEditButton
+                  url={contact.linkedinUrl}
+                  onCommit={(v) =>
+                    update((d) => void (d.contact.linkedinUrl = v || undefined))
+                  }
+                />
+              </>
+            ) : contact.linkedinUrl ? (
               <a
                 href={contact.linkedinUrl}
                 target="_blank"

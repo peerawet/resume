@@ -122,6 +122,12 @@ export default async function DashboardPage() {
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-2">
+              <Link
+                href={`/editor/${resume.id}`}
+                className="rounded-md bg-navy px-3 py-1.5 text-sm font-semibold text-white hover:bg-navy/90"
+              >
+                แก้ไข
+              </Link>
               {resume.isPublic && (
                 <Link
                   href={`/r/${resume.slug}`}

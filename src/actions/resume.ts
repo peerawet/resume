@@ -3,10 +3,21 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { nanoid } from "nanoid";
+import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { defaultConfig } from "@/lib/schema";
+import {
+  defaultConfig,
+  resumeConfigSchema,
+  resumeDocumentSchema,
+} from "@/lib/schema";
 import { createStarterDocument } from "@/lib/template";
+
+const updateDraftSchema = z.object({
+  title: z.string().min(1).max(200),
+  doc: resumeDocumentSchema,
+  config: resumeConfigSchema,
+});
 
 /** คืน session ที่ login แล้ว — ทุก action ต้องผ่านตัวนี้ก่อน */
 async function requireUser() {
@@ -35,6 +46,23 @@ export async function createResume() {
   });
   revalidatePath("/dashboard");
   return { id: resume.id };
+}
+
+/** autosave draft จาก editor — validate ทั้งก้อนก่อนเขียนเสมอ (plan §8) */
+export async function updateDraft(resumeId: string, input: unknown) {
+  const user = await requireUser();
+  await requireOwnedResume(resumeId, user.id);
+  const parsed = updateDraftSchema.parse(input);
+  await prisma.resume.update({
+    where: { id: resumeId },
+    data: {
+      title: parsed.title,
+      content: parsed.doc,
+      config: parsed.config,
+    },
+  });
+  revalidatePath("/dashboard");
+  return { ok: true as const };
 }
 
 export async function deleteResume(resumeId: string) {
@@ -73,5 +101,5 @@ export async function unpublishResume(resumeId: string) {
 
 export async function createResumeAndGo() {
   const { id } = await createResume();
-  redirect(`/dashboard?created=${id}`);
+  redirect(`/editor/${id}`);
 }

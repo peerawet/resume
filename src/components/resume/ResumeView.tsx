@@ -12,6 +12,7 @@ import {
   TechStack,
 } from "./sections";
 import { ResumeDataProvider } from "./resume-data";
+import { EditableText, EditingProvider, type EditableDraft } from "./editing";
 import type { ContactInfo, ResumeContent } from "@/i18n/types";
 
 const PAGE_MM = 297;
@@ -28,16 +29,28 @@ interface ResumeViewProps {
   content: ResumeContent;
   contact: ContactInfo;
   config?: ResumeViewConfig;
+  /** โหมด editor: เปิด inline editing ทุก field */
+  editable?: boolean;
+  /** ต้องส่งคู่กับ editable — recipe mutate content/contact แล้ว state ฝั่ง editor ถูกอัพเดต */
+  onUpdate?: (recipe: (draft: EditableDraft) => void) => void;
+  /** แจ้งเมื่อ user ปรับฟ้อนต์/คอลัมน์ — editor ใช้ autosave ลง config */
+  onConfigChange?: (config: { fontDelta: number; leftPct: number }) => void;
 }
 
 /**
  * Presentational resume — ตัวเดียวใช้ทั้งหน้า public / editor / preview
- * (Phase ถัดไปจะเพิ่ม `editable` + callback เซฟ config)
  *
  * Layout: < md เป็น single column (ไม่มี A4/auto-fit/column drag),
  * ≥ md และตอน print เป็นกระดาษ A4 เหมือนเดิม
  */
-export default function ResumeView({ content, contact, config }: ResumeViewProps) {
+export default function ResumeView({
+  content,
+  contact,
+  config,
+  editable = false,
+  onUpdate,
+  onConfigChange,
+}: ResumeViewProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const columnsRef = useRef<HTMLDivElement>(null);
@@ -95,7 +108,9 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
       if (!columns) return;
       const rect = columns.getBoundingClientRect();
       const pct = ((move.clientX - rect.left) / rect.width) * 100;
-      setLeftPct(Math.min(LEFT_PCT_MAX, Math.max(LEFT_PCT_MIN, pct)));
+      const clamped = Math.min(LEFT_PCT_MAX, Math.max(LEFT_PCT_MIN, pct));
+      setLeftPct(clamped);
+      onConfigChange?.({ fontDelta, leftPct: clamped });
     };
     const onUp = () => {
       setDragging(false);
@@ -108,8 +123,12 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
     handle.addEventListener("pointercancel", onUp);
   };
 
-  const adjustFont = (steps: number) =>
-    setFontDelta((current) => current + steps * FONT_STEP);
+  const setFont = (value: number) => {
+    setFontDelta(value);
+    onConfigChange?.({ fontDelta: value, leftPct });
+  };
+
+  const adjustFont = (steps: number) => setFont(fontDelta + steps * FONT_STEP);
 
   const fitStyles: React.CSSProperties = isDesktop
     ? {
@@ -120,7 +139,7 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
       }
     : {};
 
-  return (
+  const body = (
     <ResumeDataProvider value={{ content, contact }}>
       <div
         ref={pageRef}
@@ -184,7 +203,13 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
 
           <footer className="tracked mt-auto flex items-center justify-between gap-2 border-t border-slate-200 px-5 py-2.5 text-[calc(12px+var(--fs-d,0px))] uppercase tracking-[0.14em] text-slate-400 md:px-9 print:px-9">
             <span>
-              {content.personal.name} · {content.ui.footerRole}
+              {content.personal.name} ·{" "}
+              <EditableText
+                value={content.ui.footerRole}
+                onCommit={(v) =>
+                  onUpdate?.((d) => void (d.content.ui.footerRole = v))
+                }
+              />
             </span>
             <span>{content.personal.location}</span>
           </footer>
@@ -200,7 +225,7 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
           A−
         </button>
         <button
-          onClick={() => setFontDelta(0)}
+          onClick={() => setFont(0)}
           title="รีเซ็ตขนาดฟ้อนต์ / Reset font size"
           className="min-w-[64px] border-x border-slate-200 px-2 py-2 text-center text-xs font-semibold tabular-nums text-slate-500 hover:bg-slate-100"
         >
@@ -216,4 +241,9 @@ export default function ResumeView({ content, contact, config }: ResumeViewProps
       </div>
     </ResumeDataProvider>
   );
+
+  if (editable && onUpdate) {
+    return <EditingProvider update={onUpdate}>{body}</EditingProvider>;
+  }
+  return body;
 }

@@ -12,7 +12,14 @@
 - Gotcha ที่แก้แล้ว: **ห้ามใช้ package `ws` กับ Next** (bundle แล้ว `bufferUtil.mask` พัง) — ใช้ `globalThis.WebSocket` ของ Node 22 + `serverExternalPackages` ใน next.config.ts แทน
 - ⚠️ `.env.example` ในเวิร์กกิ้งทรียังมี Neon credentials จริงที่ผู้ใช้วางไว้ — **ห้าม commit** (ค่าจริงถูกย้ายไป `.env` แล้ว รวมถึง `DIRECT_URL` ที่แก้เป็น host ไม่มี `-pooler` และ `AUTH_SECRET` ที่ generate แล้ว); ควรคืน placeholder แล้ว rotate password ถ้าเผลอ commit
 - Local dev: port 3000/3001 มีแอปอื่นใช้อยู่ — ใช้ `npx next dev -p 3777`
-- ถัดไป: เทสต์ login เมื่อได้ OAuth creds → **Phase 3 (inline editor)**
+- **Phase 3 เสร็จ + ทดสอบ E2E ผ่านครบ (2026-07-18)** — inline editor ทั้งตัว:
+  - `editing.tsx`: `EditingContext` + `<EditableText>` (span→input/textarea, typography inherit ผ่าน `.editable-input`, Enter/blur commit, Esc cancel, Shift+Enter newline) + `<SortableList>` (dnd-kit, variant block/chip, เพิ่ม/ลบ/ลาก) + `UrlEditButton` (prompt-based MVP)
+  - ทุก section + Header + footer role แก้ inline ได้; `/editor/[id]` มี autosave debounce 1s (`updateDraft` action + zod validate), lang tabs EN/ไทย + ปุ่มเพิ่มภาษา (copy จากภาษาปัจจุบัน), Publish/Unpublish, ปรับฟ้อนต์/คอลัมน์ autosave ลง config ผ่าน `onConfigChange`
+  - E2E (playwright, session token ตรงใน DB แทน OAuth): anon redirect, ownership 404, inline edit, autosave, refresh คง draft, guest ไม่เห็น draft จน publish, add bullet, mobile edit — **ผ่านทั้งหมด**; หลังเทสต์รัน `npx tsx prisma/restore-owner.ts` เพื่อรีเซ็ตข้อมูลเจ้าของ และลบ session token ทดสอบออกจาก DB แล้ว
+  - Gotcha: production/self-host ต้องมี `AUTH_TRUST_HOST=true` (เพิ่มใน `.env` แล้ว; Vercel เซ็ตให้เอง) ไม่งั้น auth() โยน UntrustedHost เงียบๆ
+  - dev helpers: `prisma/dev-session.ts` (สร้าง session เทสต์), `prisma/restore-owner.ts`
+- OAuth credentials ยังไม่ทำ (ผู้ใช้สั่งข้ามเมื่อ 2026-07-18) — login จริงยังเทสต์ไม่ได้จนกว่าจะมี
+- ถัดไป: **Phase 4 (Vercel Blob upload + hardening §8)** — ต้องมี Vercel project + Blob store ก่อน
 
 ## 1. เป้าหมาย
 
@@ -237,6 +244,7 @@ Setup ครั้งเดียว: สร้าง Blob store ใน Vercel d
 DATABASE_URL=            # Neon pooled (มี -pooler)
 DIRECT_URL=              # Neon direct
 AUTH_SECRET=
+AUTH_TRUST_HOST=true     # จำเป็นเมื่อ self-host/next start; Vercel เซ็ตให้อัตโนมัติ
 AUTH_GOOGLE_ID= / AUTH_GOOGLE_SECRET=
 AUTH_GITHUB_ID= / AUTH_GITHUB_SECRET=
 BLOB_READ_WRITE_TOKEN=   # เซ็ตอัตโนมัติเมื่อผูก Blob store กับโปรเจกต์; local ใช้ `vercel env pull`
