@@ -206,22 +206,29 @@ export default function ResumePhoto() {
           />
           <span className="absolute left-0 top-full z-30 mt-2 block w-64 rounded-md border border-slate-200 bg-white p-3 text-[13px] shadow-lg print:hidden">
             <span className="flex items-center gap-2">
-              <button
-                type="button"
-                disabled={uploading}
-                onClick={() => fileRef.current?.click()}
-                className="inline-flex flex-1 items-center justify-center gap-1.5 rounded border border-slate-300 px-2 py-1.5 font-semibold text-slate-600 hover:border-navy/50 hover:text-navy disabled:opacity-50"
-              >
-                {uploading ? (
-                  <>
-                    <Loader2 size={13} className="animate-spin" /> กำลังอัพโหลด…
-                  </>
-                ) : (
-                  <>
-                    <Camera size={13} /> อัพโหลดรูป
-                  </>
-                )}
-              </button>
+              {/* ไม่มี resumeId = โหมดลองแก้ไขของ guest — อัพโหลดไม่ได้ (ไม่มีสิทธิ์) */}
+              {resumeId ? (
+                <button
+                  type="button"
+                  disabled={uploading}
+                  onClick={() => fileRef.current?.click()}
+                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded border border-slate-300 px-2 py-1.5 font-semibold text-slate-600 hover:border-navy/50 hover:text-navy disabled:opacity-50"
+                >
+                  {uploading ? (
+                    <>
+                      <Loader2 size={13} className="animate-spin" /> กำลังอัพโหลด…
+                    </>
+                  ) : (
+                    <>
+                      <Camera size={13} /> อัพโหลดรูป
+                    </>
+                  )}
+                </button>
+              ) : (
+                <span className="flex-1 text-[11px] leading-4 text-slate-400">
+                  โหมดทดลอง — ปรับได้เฉพาะขนาด/ซูม/ตำแหน่ง
+                </span>
+              )}
               {contact.photo && (
                 <button
                   type="button"
