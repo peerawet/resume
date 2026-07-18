@@ -8,20 +8,20 @@ import {
   useState,
   useTransition,
 } from "react";
-import { ArrowLeft, ExternalLink, Globe, Plus } from "lucide-react";
+import { ArrowLeft, ExternalLink, Globe, Plus, Save } from "lucide-react";
 import ResumeView from "@/components/resume/ResumeView";
 import type { EditableDraft } from "@/components/resume/editing";
 import type { Language } from "@/i18n/types";
 import type { ResumeConfig, ResumeDocument } from "@/lib/schema";
 import { publishResume, unpublishResume, updateDraft } from "@/actions/resume";
 
-type SaveState = "saved" | "pending" | "saving" | "error";
+type SaveState = "saved" | "dirty" | "saving" | "error";
 
 const SAVE_LABEL: Record<SaveState, string> = {
   saved: "บันทึกแล้ว",
-  pending: "รอบันทึก…",
+  dirty: "ยังไม่ได้บันทึก",
   saving: "กำลังบันทึก…",
-  error: "บันทึกไม่สำเร็จ — จะลองใหม่เมื่อแก้ครั้งถัดไป",
+  error: "บันทึกไม่สำเร็จ — ลองกดบันทึกอีกครั้ง",
 };
 
 interface EditorProps {
@@ -63,7 +63,8 @@ export default function Editor({ resume }: EditorProps) {
   const stateRef = useRef({ doc, config, title });
   stateRef.current = { doc, config, title };
   const saveSeq = useRef(0);
-  const firstRender = useRef(true);
+  // snapshot ไว้เทียบ identity — กัน StrictMode รัน effect ซ้ำตอน mount แล้ว mark dirty ผิดๆ
+  const lastSeen = useRef({ doc, config, title });
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -82,16 +83,25 @@ export default function Editor({ resume }: EditorProps) {
     }
   }, [resume.id]);
 
-  // autosave: debounce ~1s หลังการแก้ครั้งล่าสุด
+  // ไม่มี autosave (ผู้ใช้เลือกกดบันทึกเอง 2026-07-18) — แค่ mark dirty ให้รู้ว่าค้างอยู่
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    setSaveState("pending");
-    const timer = setTimeout(save, 1000);
-    return () => clearTimeout(timer);
-  }, [doc, config, title, save]);
+    const last = lastSeen.current;
+    if (last.doc === doc && last.config === config && last.title === title) return;
+    lastSeen.current = { doc, config, title };
+    setSaveState("dirty");
+  }, [doc, config, title]);
+
+  // Ctrl/Cmd+S = บันทึก (แทน save-page ของเบราว์เซอร์)
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
+        event.preventDefault();
+        if (saveState === "dirty" || saveState === "error") void save();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [save, saveState]);
 
   // เตือนก่อนปิดแท็บถ้ายังเซฟไม่เสร็จ
   useEffect(() => {
@@ -199,11 +209,23 @@ export default function Editor({ resume }: EditorProps) {
 
         <span
           className={`ml-auto text-xs font-semibold ${
-            saveState === "error" ? "text-red-600" : "text-slate-400"
+            saveState === "error"
+              ? "text-red-600"
+              : saveState === "dirty"
+                ? "text-amber-600"
+                : "text-slate-400"
           }`}
         >
           {SAVE_LABEL[saveState]}
         </span>
+        <button
+          onClick={() => void save()}
+          disabled={saveState === "saved" || saveState === "saving"}
+          title="บันทึก draft (Ctrl+S)"
+          className="flex items-center gap-1.5 rounded-md border border-slate-300 px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-50"
+        >
+          <Save size={13} /> บันทึก
+        </button>
 
         {isPublic && (
           <Link
@@ -226,7 +248,7 @@ export default function Editor({ resume }: EditorProps) {
         <button
           onClick={handlePublish}
           disabled={publishing}
-          title="เผยแพร่ draft ปัจจุบันเป็นเวอร์ชันสาธารณะ"
+          title="บันทึก draft ปัจจุบันแล้วเผยแพร่เป็นเวอร์ชันสาธารณะ"
           className="flex items-center gap-1.5 rounded-md bg-navy px-4 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-navy/90 disabled:opacity-50"
         >
           <Globe size={13} /> {publishing ? "กำลังเผยแพร่…" : "Publish"}

@@ -142,7 +142,7 @@ export default function ResumePhoto() {
           clientPayload: JSON.stringify({ resumeId }),
         },
       );
-      // blob เก่าถูกลบใน updateDraft ตอน autosave flush (ถ้า published ไม่อ้างอยู่)
+      // blob เก่าถูกลบใน updateDraft เมื่อผู้ใช้กดบันทึก (ถ้า published ไม่อ้างอยู่)
       update((d) => {
         d.contact.photo = result.url;
         d.contact.photoZoom = 1;
