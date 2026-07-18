@@ -11,7 +11,7 @@ export default async function EditorPage({
 }) {
   const { id } = await params;
   const session = await auth();
-  if (!session?.user) redirect("/dashboard");
+  if (!session?.user) redirect("/login");
 
   // เช็ค ownership ฝั่ง server ก่อน render เสมอ — resume คนอื่น = 404 (ไม่บอกใบ้ว่ามีอยู่)
   const resume = await prisma.resume.findUnique({ where: { id } });

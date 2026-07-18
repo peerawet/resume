@@ -75,7 +75,7 @@ export default async function Home() {
           Resume Builder
         </span>
         <Link
-          href="/dashboard"
+          href="/login"
           className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
         >
           เข้าสู่ระบบ
@@ -94,7 +94,7 @@ export default async function Home() {
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/dashboard"
+            href="/signup"
             className="rounded-md bg-navy px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-navy/90"
           >
             เริ่มสร้างฟรี
@@ -133,10 +133,10 @@ export default async function Home() {
           พร้อมใช้แล้ววันนี้ ฟรี
         </h2>
         <p className="mt-2 text-slate-600">
-          เข้าสู่ระบบด้วย Google หรือ GitHub แล้วเริ่มจากเทมเพลตได้เลย
+          สมัครด้วยอีเมลแล้วเริ่มจากเทมเพลตได้เลย
         </p>
         <Link
-          href="/dashboard"
+          href="/signup"
           className="mt-6 rounded-md bg-navy px-6 py-3 text-base font-semibold text-white shadow-md hover:bg-navy/90"
         >
           สร้าง resume ของคุณ

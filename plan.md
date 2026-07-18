@@ -18,7 +18,14 @@
   - E2E (playwright, session token ตรงใน DB แทน OAuth): anon redirect, ownership 404, inline edit, autosave, refresh คง draft, guest ไม่เห็น draft จน publish, add bullet, mobile edit — **ผ่านทั้งหมด**; หลังเทสต์รัน `npx tsx prisma/restore-owner.ts` เพื่อรีเซ็ตข้อมูลเจ้าของ และลบ session token ทดสอบออกจาก DB แล้ว
   - Gotcha: production/self-host ต้องมี `AUTH_TRUST_HOST=true` (เพิ่มใน `.env` แล้ว; Vercel เซ็ตให้เอง) ไม่งั้น auth() โยน UntrustedHost เงียบๆ
   - dev helpers: `prisma/dev-session.ts` (สร้าง session เทสต์), `prisma/restore-owner.ts`
-- OAuth credentials ยังไม่ทำ (ผู้ใช้สั่งข้ามเมื่อ 2026-07-18) — login จริงยังเทสต์ไม่ได้จนกว่าจะมี
+- **Auth เปลี่ยนเป็น email/password แล้ว (2026-07-18, คำสั่งผู้ใช้ — ไม่เอา Google/GitHub)**:
+  - Credentials provider + bcryptjs (hash rounds 12) + **JWT session** (Credentials ใช้ DB session ไม่ได้) — `User.passwordHash` เพิ่มใน migration `add-password-hash`
+  - หน้า `/login` + `/signup` (useActionState + server actions ใน `src/actions/auth.ts`), `/signin` redirect → `/login`, ทุกจุด unauthenticated redirect ไป `/login`
+  - Landing CTA ชี้ /signup, ปุ่มเข้าสู่ระบบชี้ /login; dashboard เหลือปุ่มออกจากระบบ
+  - E2E ผ่านครบ 12 ข้อ: signin-redirect, dashboard-redirect, signup→dashboard, สมัครซ้ำ error, สร้าง resume→editor, แก้+publish+guest เห็น, ownership 404, logout, login ผิด error, login ถูก, list คงอยู่ (user ทดสอบถูกลบออกจาก DB แล้ว)
+  - Gotcha: React 19 reset ฟอร์มหลัง action คืน error → loginAction คืน `email` กลับมาใส่ defaultValue
+  - **เจ้าของยังไม่มีรหัสผ่าน** — ตั้งด้วย `npx tsx prisma/set-password.ts peerawet1996@gmail.com <รหัสผ่าน>` แล้ว login ที่ /login ได้เลย
+  - ตาราง Account/Session/VerificationToken คงไว้ใน schema เผื่อ OAuth กลับมาภายหลัง; `@auth/prisma-adapter` ไม่ได้ใช้แล้วแต่ยังอยู่ใน deps
 - ถัดไป: **Phase 4 (Vercel Blob upload + hardening §8)** — ต้องมี Vercel project + Blob store ก่อน
 
 ## 1. เป้าหมาย

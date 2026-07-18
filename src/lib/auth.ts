@@ -1,20 +1,39 @@
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
-import GitHub from "next-auth/providers/github";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { z } from "zod";
 import { prisma } from "./db";
 
+const credentialsSchema = z.object({
+  email: z.string().email().max(200),
+  password: z.string().min(1).max(200),
+});
+
+/**
+ * Auth แบบ email/password (ผู้ใช้เลือกตัด OAuth ออก 2026-07-18)
+ * Credentials provider บังคับใช้ JWT session (ไม่ใช่ DB session)
+ */
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
+  pages: { signIn: "/login" },
   providers: [
-    // Google verify email เสมอ — เปิด linking เพื่อให้ user ที่ถูก seed ไว้
-    // (เจ้าของ) login ด้วย Google แล้วผูกกับ row เดิมได้
-    Google({ allowDangerousEmailAccountLinking: true }),
-    GitHub,
+    Credentials({
+      credentials: { email: {}, password: {} },
+      async authorize(raw) {
+        const parsed = credentialsSchema.safeParse(raw);
+        if (!parsed.success) return null;
+        const email = parsed.data.email.toLowerCase().trim();
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user?.passwordHash) return null;
+        const valid = await bcrypt.compare(parsed.data.password, user.passwordHash);
+        if (!valid) return null;
+        return { id: user.id, email: user.email, name: user.name, image: user.image };
+      },
+    }),
   ],
   callbacks: {
-    session({ session, user }) {
-      session.user.id = user.id;
+    session({ session, token }) {
+      if (token.sub) session.user.id = token.sub;
       return session;
     },
   },
