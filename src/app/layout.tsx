@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -23,7 +24,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      {/* flex-col: ให้หน้าแบบ card กลางจอ (login/signup) ใช้ flex-1 เต็มพื้นที่ใต้ navbar */}
+      <body className="flex min-h-screen flex-col">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

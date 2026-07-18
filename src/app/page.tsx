@@ -68,21 +68,8 @@ export default async function Home() {
   const exampleSlug = await getExampleSlug();
 
   return (
-    <div className="min-h-screen bg-white text-ink">
-      {/* Nav */}
-      <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-5">
-        <span className="font-display text-lg font-bold text-navy">
-          Resume Builder
-        </span>
-        <Link
-          href="/login"
-          className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
-        >
-          เข้าสู่ระบบ
-        </Link>
-      </nav>
-
-      {/* Hero */}
+    <div className="bg-white text-ink">
+      {/* Hero (navbar อยู่ใน root layout แล้ว) */}
       <section className="mx-auto flex w-full max-w-5xl flex-col items-center px-6 pb-16 pt-14 text-center md:pt-24">
         <h1 className="font-display max-w-3xl text-4xl font-bold leading-tight text-navy md:text-5xl">
           สร้าง resume ที่สวยตั้งแต่ต้น

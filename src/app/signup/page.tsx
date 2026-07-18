@@ -8,7 +8,7 @@ export default function SignupPage() {
   const [state, action, pending] = useActionState(signupAction, undefined);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-slate-100 px-4">
+    <main className="flex flex-1 flex-col items-center justify-center bg-slate-100 px-4 py-10">
       <div className="w-full max-w-sm rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
         <Link href="/" className="font-display text-lg font-bold text-navy">
           Resume Builder
